@@ -1,0 +1,19 @@
+Wizard Requirements
+
+Single directive
+API to set steps
+Allow step navigation properties
+
+Step Attributes
+stepName
+stepNumber
+stepHasChanges
+enterOK
+exitOK
+stepCompleted
+
+Step Object
+
+All stepCompleted set to false on init
+All enterOK set to false on init except first step
+All exitOk set to false on init
