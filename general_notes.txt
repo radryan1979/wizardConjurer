@@ -17,3 +17,5 @@ Step Object
 All stepCompleted set to false on init
 All enterOK set to false on init except first step
 All exitOk set to false on init
+
+Allow for data to shared via service or parent directive.
