@@ -19,3 +19,32 @@ All enterOK set to false on init except first step
 All exitOk set to false on init
 
 Allow for data to shared via service or parent directive.
+
+Directive attributes:
+config object
+{
+"currentStep":0-n,
+"onFinish":function(),
+"onCancel":function(),
+"steps": []
+}
+
+stepObject
+{
+	"stepName":null,
+	"stepNumber":0-n,
+	"stepHasChanges":bool,
+	"canEnter":bool,
+	"canExit":bool,
+	"stepComplete":bool,
+	"hasPrevious":bool,
+	"hasNext":bool,
+	"stepData":{}
+}
+
+Inside the wizard directive, insert a div for each directive, bind the div to an ng-if or ng-show/hide that uses vm.step#
+
+Each custom directive that put into a step must update the parent scope with the following information:
+canEnter
+canExit
+stepComplete
