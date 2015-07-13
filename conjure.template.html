@@ -1,5 +1,16 @@
 <div>
-	<div>Navigation tabs or whatever.</div>
+	<div>
+		<ul>
+			<li ng-repeat="(key,value) in vm.wizardSteps" id="{{key}}" class="ng-class:current btn-default" ng-click="vm.goTo(key)">
+				{{value.stepName}
+			</li>
+		</ul>
+	</div>
+	<div>
+		<div ng-if="vm.currentStep == 1">Step one directive.</div>
+		<div ng-if="vm.currentStep ==2">Step two directive.</div>
+		Step directives go here.
+	</div>
 	<div>
 		<button type="button" class="btn btn-white" ng-click="vm.movePrevious()">Previous</button>
 		<button type="button" class="btn btn-white" ng-click="vm.moveNext()">Next</next>

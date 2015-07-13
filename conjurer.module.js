@@ -1,1 +1,3 @@
-angular.module('conjurer',[]);
+(function(){
+	angular.module('conjurer',[]);
+})();
