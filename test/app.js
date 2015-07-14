@@ -1,3 +1,1 @@
-(function(){
-	angular.module('testWizard',[])
-})
+angular.module('app',['conjurer']);

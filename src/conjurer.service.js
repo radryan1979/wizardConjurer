@@ -1,17 +1,21 @@
 (function(){
-	angular
-		.module('conjurer')
-		.factory('wizardServiceApi', wizardServiceApi);
+	'use strict';
 	
-	wizardServiceApi.$inject = ['$filter','$resource','$rootScope'];
+	angular.module('conjurer')
 	
-	function wizardServiceApi($filter,$resource,$rootScope){
-		var _wizardsList = {
+	.factory('wizardServiceApi', wizardServiceApi);
+	
+	function wizardServiceApi(){
+		var service = {};
+		
+		var _wizardList = {
 			"defaultWizard" : {}
 		};
 		
+		console.log("Did I get here yet?");
+		
 		// Provided as a reference for what a wizard and corresponding
-		// step objects look like.
+		// step object look like.
 		var _defaultWizard = {
 			wizardName: "defaultWizard",
 			currentStep:0,
@@ -21,18 +25,16 @@
 			steps: {
 				1:{
 					stepName:"step one",
-					stepHasChanges:bool,
-					canEnter:bool,
-					canExit:bool,
-					stepComplete:bool,
-					isFirstStep:bool,
-					isLastStep:bool,
+					stepHasChanges:false,
+					canEnter:false,
+					canExit:false,
+					stepComplete:false,
+					isFirstStep:false,
+					isLastStep:false,
 					stepData:{}
 				}
 			}
 		};
-		
-		var service = {};
 		
 		// Create a new empty wizard object on
 		// _wizardList
@@ -45,6 +47,8 @@
 				numberOfSteps: 0,
 				steps: {}
 			};
+			console.log("New Wizard Created.");
+			console.log(_wizardList[wizardName]);
 		};
 		
 		// Sets a property for a given wizard.
@@ -55,12 +59,12 @@
 		// Gets a property for a given wizard.
 		service.getWizardProperty = function(wizardName, propertyName){
 			return _wizardList[wizardName][propertyName];
-		}
+		};
 		
 		// Returns the entire object for a given wizard
 		// on the _wizardList
 		service.getWizardObject = function(wizardName){
-			return _wizardList[wizardname];
+			return _wizardList[wizardName];
 		};
 		
 		// Remove an existing wizard from _wizardList
@@ -71,7 +75,7 @@
 		};
 		
 		// Set the current step for a given wizard.
-		serivce.setCurrentStep = function(wizardName, data){
+		service.setCurrentStep = function(wizardName, data){
 			_wizardList[wizardName]['currentStep'] = data;
 		};
 		
@@ -104,7 +108,7 @@
 				_stepProperties.isLastStep = data.isLastStep;
 				_stepProperties.stepData = data.stepData;
 			};
-			_wizardsList[wizardName][stepNumber] = _stepProperties;
+			_wizardList[wizardName][stepNumber] = _stepProperties;
 		};
 		
 		// Removes a step from a given wizard.
@@ -125,8 +129,9 @@
 		};
 		
 		service.getStepFlags = function(wizardName, stepNumber){
-			return _wizardsList[wizardName][stepNumber];
-		}
+			return _wizardList[wizardName][stepNumber];
+		};
 		
-	}	
+		return service;
+	};	
 })();

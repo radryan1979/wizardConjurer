@@ -1,13 +1,35 @@
-<html>
+<!DOCTYPE html>
+<html ng-app="app">
 	<head>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<title>ngConjurer Test Example</title>
 	</head>
-	<body ng-app="testWizard" ng-controller="testWizardController">
+	<body ng-controller="ctrl">
+		<h1>Wizard Controller Test</h1>
+		<hr>
+		<wizard-control wizard-name="ryanswizard">
+			<div>Inside wizard control directive.</div>	
+		</wizard-control>
 		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
 		
-		<script src="../src/conjure.module.js"></script>
-		<script src="../src/conjure.service.js"></script>
-		<script src="../src/conjure.directive.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.js"></script>
+		
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap.min.js"></script>
+		
+		<script src="../src/conjurer.module.js"></script>
+		<script src="../src/conjurer.service.js"></script>
+		<script src="../src/conjurer.directive.js"></script>
+		
 		<script src="app.js"></script>
+		<script src="app.controller.js"></script>
+
+
+
 	</body>
 </html>
