@@ -1,7 +1,8 @@
 <div>
 	<div>
 		<ul>
-			<li ng-repeat="(key,value) in vm.wizardSteps" id="{{key}}" class="ng-class:current btn-default" ng-click="vm.goTo(key)">
+			<li ng-repeat="(key,value) in vm.wizardSteps" ng-click="vm.goTo(key)"
+				ng-class="{'btn btn-success': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}">
 				{{value.stepName}
 			</li>
 		</ul>
@@ -9,10 +10,9 @@
 	<div>
 		<div ng-if="vm.currentStep == 1">Step one directive.</div>
 		<div ng-if="vm.currentStep ==2">Step two directive.</div>
-		Step directives go here.
 	</div>
 	<div>
-		<button type="button" class="btn btn-white" ng-click="vm.movePrevious()">Previous</button>
-		<button type="button" class="btn btn-white" ng-click="vm.moveNext()">Next</next>
+		<button type="button" class="btn btn-info" ng-click="vm.movePrevious()">Previous</button>
+		<button type="button" class="btn btn-info" ng-click="vm.moveNext()">Next</next>
 </div>
 	
