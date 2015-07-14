@@ -108,7 +108,7 @@
 				_stepProperties.isLastStep = data.isLastStep;
 				_stepProperties.stepData = data.stepData;
 			};
-			_wizardList[wizardName][stepNumber] = _stepProperties;
+			_wizardList[wizardName]["steps"][stepNumber] = _stepProperties;
 		};
 		
 		// Removes a step from a given wizard.
@@ -116,7 +116,13 @@
 			if (_wizardList[wizardName].hasOwnProperty(stepNumber)) {
 				delete _wizardList[wizardName][stepNumber];
 			};
-		}
+		};
+		
+		// Returns the steps
+		service.getWizardSteps = function(wizardName){
+			console.log("Getting steps for: " + wizardName);
+			return _wizardList[wizardName]['steps'];
+		};
 		
 		// Used to set any of the properties on a given step.
 		service.setStepProperty = function(wizardName, stepNumber, propertyName, data){
@@ -129,7 +135,7 @@
 		};
 		
 		service.getStepFlags = function(wizardName, stepNumber){
-			return _wizardList[wizardName][stepNumber];
+			return _wizardList[wizardName]["steps"][stepNumber];
 		};
 		
 		return service;

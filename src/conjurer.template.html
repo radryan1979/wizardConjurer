@@ -1,10 +1,8 @@
 <div>
 	<div>
 		<ul>
-			<!--You will want to change the classes in the ng-class attribute to match your theme for active/inactive steps. -->
-			<li ng-repeat="(key,value) in vm.wizardSteps" ng-click="vm.goTo(key)"
-				ng-class="{'btn btn-success': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}">
-				{{value.stepName}
+			<li ng-repeat="(key,value) in vm.wizardSteps" ng-click="vm.goTo(key)" ng-class="{'btn btn-success': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}">
+				{{value.stepName}}
 			</li>
 		</ul>
 	</div>
@@ -15,5 +13,6 @@
 	<div>
 		<button type="button" class="btn btn-info" ng-click="vm.movePrevious()">Previous</button>
 		<button type="button" class="btn btn-info" ng-click="vm.moveNext()">Next</next>
+	</div>
 </div>
 	

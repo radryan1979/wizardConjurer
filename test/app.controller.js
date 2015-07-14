@@ -7,6 +7,7 @@
 	ctrl.$inject = ['$scope','wizardServiceApi'];
 	
 	function ctrl($scope,wizardServiceApi){
+		$scope.isReady = false;
 		console.log("testWizardController started.");
 		wizardServiceApi.createWizard("ryanswizard");
 		wizardServiceApi.setCurrentStep("ryanswizard",1);
@@ -42,5 +43,6 @@
 		});
 		var mywizard = wizardServiceApi.getWizardObject("ryanswizard");
 		console.log(mywizard);	
+		$scope.isReady = true;
 	};
 })();

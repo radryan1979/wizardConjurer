@@ -8,7 +8,7 @@
 	<body ng-controller="ctrl">
 		<h1>Wizard Controller Test</h1>
 		<hr>
-		<wizard-control wizard-name="ryanswizard">
+		<wizard-control ng-if="isReady" wizard-name="ryanswizard">
 			<div>Inside wizard control directive.</div>	
 		</wizard-control>
 		

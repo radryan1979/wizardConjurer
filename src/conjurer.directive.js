@@ -5,9 +5,9 @@
 	angular.module('conjurer')
 	.directive('wizardControl', wizardControl);
 	
-	wizardControl.$inject = ['wizardServiceApi'];
+	wizardControl.$inject = ['wizardServiceApi','$compile'];
 	
-	function wizardControl(wizardServiceApi,$transclude){
+	function wizardControl(wizardServiceApi,$transclude,$compile){
 		return {
 			restrict: 'AE',
 			transclude: true,
@@ -15,26 +15,20 @@
 				wizname: '@wizardName'
 				},
 			
-			controller: function($scope,wizardServiceApi) {
+			controller: function($scope,wizardServiceApi, $compile) {
 				var vm = this;
 				
-				vm.templateUrl = "conjurer.template.html";
+				vm.templateUrl = "http://localhost/conjurer.template.html";
+				console.log(vm.templateUrl);
 				
 				vm.wizardName = $scope.wizname;
 				console.log(vm.wizardName);
-				console.log(vm.templateUrl);
 				vm.currentStep = null;
 				vm.wizardSteps = null;
-				
-				vm.initialize = function(){
-					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
-					vm.wizardSteps = wizardServiceApi.getWizardProperty(vm.wizardName,steps);
-					// get steps and populate directive navbar
-					// set default values for step configs
-					// set current step to beginning
-					// set directive to show first step
-				};
-				vm.configureIbox = function(){};
+				vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+				console.log("Directive got current step: " + vm.currentStep);
+				vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
+				console.log(vm.wizardSteps);
 				
 				vm.movePrevious = function(){
 					var canEnterPrevious = true;
@@ -53,12 +47,13 @@
 					if (canEnterPrevious && stepFlags.canExit) {
 						wizardServiceApi.setCurrentStep(vm.wizardName,vm.currentStep-1);
 						vm.currentStep = vm.currentStep--;
-					}	
+					};	
 					// TODO: update controller and set new step active
 					
 				};
 				
 				vm.moveNext = function(){
+					console.log("Move next clicked.");
 					var canEnterNext = true;
 					
 					// get current step
@@ -91,26 +86,14 @@
 				$scope.$on('$destroy', function() {
 					wizardServiceApi.removeWizard(name);					
 				});
+				
 			},
-			
 			controllerAs: 'vm',
-			//template: '<div ng-include="vm.templateUrl"></div>'
-			template: 
-			'<div>' +
-				'<div>' +
-					'<ul>' +
-						'<!--You will want to change the classes in the ng-class attribute to match your theme for active/inactive steps. -->' +
-						'<li ng-repeat="(key,value) in vm.wizardSteps" ng-click="vm.goTo(key)"' +
-						'ng-class="{"btn btn-success": key == vm.currentStep, "btn btn-primary": key !== vm.currentStep}">' +
-						'{{value.stepName}' +
-						'</li>' +
-					'</ul>' +
-				'</div>' +
-				'<div>' +
-					'<div ng-if="vm.currentStep == 1">Step one directive.</div>' +
-					'<div ng-if="vm.currentStep ==2">Step two directive.</div>' +
-				'</div>' +
-				'<div>' +
+			template: '<div><div><ul>' +
+						'<li ng-repeat="(key,value) in vm.wizardSteps" ng-click="vm.goTo(key)" ng-class="{"btn btn-success": key == vm.currentStep, "btn btn-primary": key !== vm.currentStep}">{{value.stepName}}</li>' +
+					'</ul></div><div>' +
+					'<div ng-if="vm.currentStep == 1">Step one directive.</div><div ng-if="vm.currentStep ==2">Step two directive.</div>' +
+				'</div><div>' +
 					'<button type="button" class="btn btn-info" ng-click="vm.movePrevious()">Previous</button>' +
 					'<button type="button" class="btn btn-info" ng-click="vm.moveNext()">Next</next>' +
 				'</div>'
