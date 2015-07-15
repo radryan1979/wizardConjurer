@@ -31,7 +31,7 @@
 				console.log(vm.wizardSteps);
 				
 				vm.movePrevious = function(){
-					var canEnterPrevious = true;
+					var canEnterPrevious = false;
 					
 					// get current step
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);			
@@ -44,10 +44,13 @@
 							vm.wizardName,(vm.currentStep-1),'canEnter');						
 					};
 					// can exit this step and enter next step
-					if (canEnterPrevious && stepFlags.canExit) {
-						wizardServiceApi.setCurrentStep(vm.wizardName,vm.currentStep-1);
-						vm.currentStep = vm.currentStep--;
-					};	
+					if (canEnterPrevious==true && stepFlags.canExit==true) {
+						var newStep = Number(vm.currentStep) - 1;
+						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
+						vm.currentStep = newStep;
+					} else {
+						alert("This is the first step of the wizard.");
+					}	
 					// TODO: update controller and set new step active
 					
 				};
