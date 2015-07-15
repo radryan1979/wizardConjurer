@@ -36,14 +36,17 @@
 						// peek destination step - canEnter?
 						canEnterPrevious = wizardServiceApi.getStepProperty(
 							vm.wizardName,(vm.currentStep-1),'canEnter');						
-					};
+					} else {
+						alert("This is the first step of the wizard.");
+						return;
+					}
 					// can exit this step and enter next step
-					if (canEnterPrevious==true && stepFlags.canExit==true) {
+					if (canEnterPrevious===true && stepFlags.canExit===true) {
 						var newStep = Number(vm.currentStep) - 1;
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
 					} else {
-						alert("This is the first step of the wizard.");
+						alert("This step is not complete.");
 					}	
 					// TODO: update controller and set new step active
 					
@@ -62,14 +65,17 @@
 						// peek destination step - canEnter?
 						canEnterNext = wizardServiceApi.getStepProperty(
 							vm.wizardName,(vm.currentStep+1),'canEnter');						
-					};
+					} else {
+						alert("This is the last step of the wizard.");
+						return;
+					}
 					// can exit this step and enter next step
 					if (canEnterNext===true && stepFlags.canExit===true) {
 						var newStep = Number(vm.currentStep) +1;
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
 					} else {
-						alert("This is the last step of the wizard.");
+						alert("This step is not complete.");
 					}
 					// TODO: update controller and set new step active
 
@@ -103,7 +109,7 @@
 			template: "<div><div><ul>" +
 					"<li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)'>{{value.stepName}}</li>" +
 					"</ul></div><div>" +
-					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div></div><div>" +
+					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div><div ng-if='vm.currentStep == 3'>Step three directive.</div></div><div>" +
 					"<button type='button' class='btn btn-info' ng-click='vm.movePrevious()'>Previous</button>" +
 					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>Next</next></div>"
 		}

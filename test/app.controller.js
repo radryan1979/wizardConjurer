@@ -8,10 +8,9 @@
 	
 	function ctrl($scope,wizardServiceApi){
 		$scope.isReady = false;
-		console.log("testWizardController started.");
 		wizardServiceApi.createWizard("ryanswizard");
 		wizardServiceApi.setCurrentStep("ryanswizard",1);
-		wizardServiceApi.set
+		wizardServiceApi.setWizardProperty("ryanswizard","numberOfSteps",3)
 		wizardServiceApi.addStep("ryanswizard",1,{
 				stepName:"Step One",
 				stepHasChanges:false,
@@ -28,7 +27,7 @@
 				canEnter:true,
 				canExit:true,
 				stepComplete:false,
-				isFirstStep:true,
+				isFirstStep:false,
 				isLastStep:false,
 				stepData:{}
 		});
@@ -38,7 +37,7 @@
 				canEnter:true,
 				canExit:true,
 				stepComplete:false,
-				isFirstStep:true,
+				isFirstStep:false,
 				isLastStep:true,
 				stepData:{}
 		});

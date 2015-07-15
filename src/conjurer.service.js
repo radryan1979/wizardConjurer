@@ -49,8 +49,6 @@
 				numberOfSteps: 0,
 				steps: {}
 			};
-			console.log("New Wizard Created.");
-			console.log(_wizardList[wizardName]);
 		};
 		
 		// Sets a property for a given wizard.
@@ -122,7 +120,6 @@
 		
 		// Returns the steps
 		service.getWizardSteps = function(wizardName){
-			console.log("Getting steps for: " + wizardName);
 			return _wizardList[wizardName]['steps'];
 		};
 		
@@ -137,8 +134,6 @@
 		};
 		
 		service.getStepFlags = function(wizardName, stepNumber){
-			console.log(stepNumber);
-			console.log(_wizardList[wizardName]['steps'][stepNumber]);
 			return _wizardList[wizardName]['steps'][stepNumber];
 		};
 		
