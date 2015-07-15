@@ -18,11 +18,19 @@
 			controller: function($scope,wizardServiceApi, $compile) {
 				var vm = this;
 				
+				vm.nextButtonText = "Next";
 				vm.wizardName = $scope.wizname;
 				vm.currentStep = null;
 				vm.wizardSteps = null;
 				vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 				vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
+				
+				var startingStep = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+				if (startingStep.isFirstStep === true){
+					vm.showPrevious = false;
+				} else {
+					vm.showPrevious = true;
+				};
 				
 				vm.movePrevious = function(){
 					var canEnterPrevious = false;
@@ -35,9 +43,11 @@
 					if (!stepFlags.isFirstStep){
 						// peek destination step - canEnter?
 						canEnterPrevious = wizardServiceApi.getStepProperty(
-							vm.wizardName,(vm.currentStep-1),'canEnter');						
+							vm.wizardName,(vm.currentStep-1),'canEnter');
+						vm.showPrevious = true;					
 					} else {
 						alert("This is the first step of the wizard.");
+						vm.showPrevious = false;
 						return;
 					}
 					// can exit this step and enter next step
@@ -54,20 +64,23 @@
 				
 				vm.moveNext = function(){
 					var canEnterNext = true;
-					
+					vm.showPrevious = true;
 					// get current step
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					
 					// if this is the first step, there is no previous step
-					if (!stepFlags.isLastStep){
-						// peek destination step - canEnter?
-						canEnterNext = wizardServiceApi.getStepProperty(
-							vm.wizardName,(vm.currentStep+1),'canEnter');						
-					} else {
+					if (stepFlags.isLastStep){
+						vm.nextButtonText = "Finish";
 						alert("This is the last step of the wizard.");
 						return;
+							
+					} else {
+						// peek destination step - canEnter?
+						canEnterNext = wizardServiceApi.getStepProperty(
+							vm.wizardName,(vm.currentStep+1),'canEnter');
+						vm.nextButtonText = "Next";				
 					}
 					// can exit this step and enter next step
 					if (canEnterNext===true && stepFlags.canExit===true) {
@@ -87,10 +100,15 @@
 					var canEnterNext = false;
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
-					if (!stepFlags.isLastStep){
+					if (stepFlags.isLastStep){
+						vm.nextButtonText = "Finish";
+						alert("This is the last step of the wizard.");
+						return;
+					} else {
+						vm.nextButtonText = "Next";
 						canEnterNext = wizardServiceApi.getStepProperty(
-							vm.wizardName,(stepNumber),'canEnter');						
-					};
+						vm.wizardName,(stepNumber),'canEnter');
+					}
 					if (canEnterNext===true && stepFlags.canExit===true) {
 						wizardServiceApi.setCurrentStep(vm.wizardName,stepNumber);
 						vm.currentStep = stepNumber;
@@ -98,6 +116,7 @@
 					// check to see if current step can exit
 					// check to see if destination step can enter
 					// update directive to display new step
+					
 				};
 				
 				$scope.$on('$destroy', function() {
@@ -111,8 +130,16 @@
 					"</ul></div><div>" +
 					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div><div ng-if='vm.currentStep == 3'>Step three directive."+
 					"</div><ng-transclude></ng-transclude></div><div>" +
-					"<button type='button' class='btn btn-info' ng-click='vm.movePrevious()'>Previous</button>" +
-					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>Next</next></div>"
+					"<button type='button' class='btn btn-info' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>Previous</button>" +
+					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>{{ vm.nextButtonText }}</next></div>",
+			link: function(scope,elm,attrs){
+				scope.$watch('vm.currentStep', function(data){
+					console.log("Current Step Changed!", data);
+				});
+				var myEl = elm.find('');
+				console.log(myEl);
+				
+			}
 		}
 	}
 })();
