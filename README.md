@@ -1,2 +1,2 @@
-# ngGandalf
+# ngConjurer
 Angular wizard control
