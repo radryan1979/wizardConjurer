@@ -9,7 +9,9 @@
 		<h1>Wizard Controller Test</h1>
 		<hr>
 		<wizard-control ng-if="isReady" wizard-name="ryanswizard">
-			<div>Inside wizard control directive.</div>	
+			<my-step wizard-name="ryanswizard" step-number=1></my-step>
+			<my-step wizard-name="ryanswizard" step-number=2></my-step>
+			<my-step wizard-name="ryanswizard" step-number=3></my-step>
 		</wizard-control>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
@@ -28,8 +30,7 @@
 		
 		<script src="app.js"></script>
 		<script src="app.controller.js"></script>
-
-
+		<script src="app.directive.js"></script>
 
 	</body>
 </html>

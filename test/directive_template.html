@@ -1,0 +1,28 @@
+<div>
+	<h2>This is step {{vm.stepName}}</h2>
+	<p>Use the below buttons to toggle the properties of the step.</p>
+	<p><blockquote>You can not change these:</blockquote>
+	<span>IsFirstStep: {{vm.stepIsFirstStep}}</span>
+	<br>
+	<span>IsLastStep: {{vm.stepIsLastStep}}</span>
+	<p>
+	<h3>Step has changes:</h3>
+	<span>Current value: {{vm.stepHasChanges}}</span>
+	<button type='button' class='btn btn-info' ng-click='vm.toggleHasChanges()'>Toggle stepHasChanges</button>
+	</p>
+	<p>
+	<h3>Step is complete:</h3>
+	<span>Current value: {{vm.stepIsComplete}}</span>
+	<button type='button' class='btn btn-info' ng-click='vm.toggleIsComplete()'>Toggle stepComplete</button>
+	</p>
+	<p>
+	<h3>Step can enter:</h3>
+	<span>Current value: {{vm.stepCanEnter}}</span>
+	<button type='button' class='btn btn-info' ng-click='vm.toggleCanEnter()'>Toggle canEnter</button>
+	</p>
+	<p>
+	<h3>Step can exit:</h3>
+	<span>Current value: {{vm.stepCanExit}}</span>
+	<button type='button' class='btn btn-info' ng-click='vm.toggleCanExit()'>Toggle canExit</button>
+	</p>
+</div>

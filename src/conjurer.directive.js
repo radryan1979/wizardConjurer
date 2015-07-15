@@ -109,7 +109,8 @@
 			template: "<div><div><ul>" +
 					"<li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)'>{{value.stepName}}</li>" +
 					"</ul></div><div>" +
-					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div><div ng-if='vm.currentStep == 3'>Step three directive.</div></div><div>" +
+					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div><div ng-if='vm.currentStep == 3'>Step three directive."+
+					"</div><ng-transclude></ng-transclude></div><div>" +
 					"<button type='button' class='btn btn-info' ng-click='vm.movePrevious()'>Previous</button>" +
 					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>Next</next></div>"
 		}
