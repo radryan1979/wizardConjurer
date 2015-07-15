@@ -9,9 +9,9 @@
 		<h1>Wizard Controller Test</h1>
 		<hr>
 		<wizard-control ng-if="isReady" wizard-name="ryanswizard">
-			<my-step wizard-name="ryanswizard" step-number=1></my-step>
-			<my-step wizard-name="ryanswizard" step-number=2></my-step>
-			<my-step wizard-name="ryanswizard" step-number=3></my-step>
+			<my-step wizard-name="ryanswizard" step-number=1 ng-if=true></my-step>
+			<my-step wizard-name="ryanswizard" step-number=2 ng-if=false></my-step>
+			<my-step wizard-name="ryanswizard" step-number=3 ng-if=false></my-step>
 		</wizard-control>
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
@@ -27,6 +27,7 @@
 		<script src="../src/conjurer.module.js"></script>
 		<script src="../src/conjurer.service.js"></script>
 		<script src="../src/conjurer.directive.js"></script>
+		<script src="../src/conjurer.stepDirective.js"></script>
 		
 		<script src="app.js"></script>
 		<script src="app.controller.js"></script>

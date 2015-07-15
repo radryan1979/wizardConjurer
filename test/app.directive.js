@@ -60,7 +60,21 @@
 					"<button type='button' class='btn btn-info' ng-click='wizStepVm.toggleCanEnter()'>Toggle canEnter</button>"+
 					"</p><p><h3>Step can exit:</h3><span>Current value: {{wizStepVm.stepCanExit}}</span>"+
 					"<button type='button' class='btn btn-info' ng-click='wizStepVm.toggleCanExit()'>Toggle canExit</button>"+
-					"</p></div>"
+					"</p></div>",
+		// link: function($rootScope, el, attrs, wizardServiceApi){
+		// 	console.log("Linked:", attrs);
+		// 	var stepNumber = parseInt(attrs['stepNumber']);
+		// 	var currentStep = wizardServiceApi
+		// 		$rootScope.$watch("wizard[wizardName]", function(){
+		// 		var currentStep = $rootScope.wizard[wizardName];
+		// 		console.log("CurrentStep:",currentStep);
+		// 		if ($rootScope.wizard[wizardName] === stepNumber) {
+		// 			attrs['ngIf'] = true;
+		// 		} else{
+		// 			attrs['ngIf'] = false;
+		// 		}
+		// 	});
+		// }
 		}
 	}
 	

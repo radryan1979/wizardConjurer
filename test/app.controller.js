@@ -4,9 +4,9 @@
 	angular.module('app')
 	.controller('ctrl', ctrl);
 	
-	ctrl.$inject = ['$scope','wizardServiceApi'];
+	ctrl.$inject = ['$scope','wizardServiceApi','$rootScope'];
 	
-	function ctrl($scope,wizardServiceApi){
+	function ctrl($scope,wizardServiceApi,$rootScope){
 		$scope.isReady = false;
 		wizardServiceApi.createWizard("ryanswizard");
 		wizardServiceApi.setCurrentStep("ryanswizard",1);
@@ -42,7 +42,7 @@
 				stepData:{}
 		});
 		var mywizard = wizardServiceApi.getWizardObject("ryanswizard");
-		console.log(mywizard);	
+		console.log(mywizard);
 		$scope.isReady = true;
 	};
 })();

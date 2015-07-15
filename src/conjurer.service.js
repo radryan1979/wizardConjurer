@@ -5,14 +5,14 @@
 	
 	.factory('wizardServiceApi', wizardServiceApi);
 	
-	function wizardServiceApi(){
+	wizardServiceApi.$inject = ['$rootScope'];
+	
+	function wizardServiceApi($rootScope){
 		var service = {};
 		
 		var _wizardList = {
 			"defaultWizard" : {}
 		};
-		
-		console.log("Did I get here yet?");
 		
 		// Provided as a reference for what a wizard and corresponding
 		// step object look like.
@@ -72,11 +72,15 @@
 			if (_wizardList.hasOwnProperty(wizardName)) {
 				delete _wizardList[wizardName];
 			};
+			if ($rootScope.wizard.hasOwnProperty(wizardName)){
+				delete $rootScope.wizard[wizardName];
+			}
 		};
 		
 		// Set the current step for a given wizard.
 		service.setCurrentStep = function(wizardName, data){
 			_wizardList[wizardName]['currentStep'] = data;
+			$rootScope.$broadcast("currentWizardStepUpdated");
 		};
 		
 		// Return current step for a given wizard.

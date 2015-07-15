@@ -83,7 +83,7 @@
 					// this still gets called on the last step, but will call the finish method
 				};
 				
-				vm.goTo = function(stepNumer){
+				vm.goTo = function(stepNumber){
 					var canEnterNext = false;
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
@@ -107,7 +107,7 @@
 			},
 			controllerAs: 'vm',
 			template: "<div><div><ul>" +
-					"<li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)'>{{value.stepName}}</li>" +
+					"<li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)' role='presentation' ng-class=\"{'btn btn-sucess': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li>" +
 					"</ul></div><div>" +
 					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div><div ng-if='vm.currentStep == 3'>Step three directive."+
 					"</div><ng-transclude></ng-transclude></div><div>" +
