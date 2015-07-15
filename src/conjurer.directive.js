@@ -18,17 +18,11 @@
 			controller: function($scope,wizardServiceApi, $compile) {
 				var vm = this;
 				
-				vm.templateUrl = "conjurer.template.html";
-				console.log(vm.templateUrl);
-				
 				vm.wizardName = $scope.wizname;
-				console.log(vm.wizardName);
 				vm.currentStep = null;
 				vm.wizardSteps = null;
 				vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
-				console.log("Directive got current step: " + vm.currentStep);
 				vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
-				console.log(vm.wizardSteps);
 				
 				vm.movePrevious = function(){
 					var canEnterPrevious = false;
@@ -56,15 +50,12 @@
 				};
 				
 				vm.moveNext = function(){
-					console.log("Move next clicked.");
 					var canEnterNext = true;
 					
 					// get current step
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
-					console.log("vm.moveNext: vm.currentStep: " + vm.currentStep);
 					
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
-					console.log("stepFlags: " + stepFlags);
 					
 					// if this is the first step, there is no previous step
 					if (!stepFlags.isLastStep){
@@ -74,12 +65,12 @@
 					};
 					// can exit this step and enter next step
 					if (canEnterNext===true && stepFlags.canExit===true) {
-						console.log("Can move next.");
 						var newStep = Number(vm.currentStep) +1;
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
-						console.log("Updated current step: " + vm.currentStep);
-					};	
+					} else {
+						alert("This is the last step of the wizard.");
+					}
 					// TODO: update controller and set new step active
 
 					// if this is the last step, change the button to be a finish button
@@ -95,11 +86,8 @@
 							vm.wizardName,(stepNumber),'canEnter');						
 					};
 					if (canEnterNext===true && stepFlags.canExit===true) {
-						console.log("Can move next.");
-						var newStep = Number(vm.currentStep) +1;
-						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
-						vm.currentStep = newStep;
-						console.log("Updated current step: " + vm.currentStep);
+						wizardServiceApi.setCurrentStep(vm.wizardName,stepNumber);
+						vm.currentStep = stepNumber;
 					};
 					// check to see if current step can exit
 					// check to see if destination step can enter
