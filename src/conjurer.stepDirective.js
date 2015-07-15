@@ -11,9 +11,9 @@
 			restrict: 'A',
 			transclude: true,
 			link: function(scope, element, attrs){
-				var elStepNumber = attrs['stepNumber'];
-				var currentStep = $scope.currentStep;
-				console.log("wizard-step currentStep: ", currentStep);
+				//var elStepNumber = attrs['stepNumber'];
+				//var currentStep = $scope.currentStep;
+				console.log("wizard-step currentStep: ", attrs);
 			}
 			
 		}

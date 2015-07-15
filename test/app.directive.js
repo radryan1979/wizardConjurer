@@ -18,9 +18,7 @@
 			var wizStepVm = this;
 			var _wizName = $scope.wizardName;
 			var _stepNum = $scope.stepNumber;
-			console.log(_wizName,_stepNum);
 			var _stepFlags = wizardServiceApi.getStepFlags(_wizName,_stepNum);
-			console.log(_stepFlags);
 			
 			wizStepVm.stepName = _stepFlags.stepName;
 			wizStepVm.stepHasChanges = _stepFlags.stepHasChanges;
