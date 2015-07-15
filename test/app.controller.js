@@ -11,6 +11,7 @@
 		console.log("testWizardController started.");
 		wizardServiceApi.createWizard("ryanswizard");
 		wizardServiceApi.setCurrentStep("ryanswizard",1);
+		wizardServiceApi.set
 		wizardServiceApi.addStep("ryanswizard",1,{
 				stepName:"Step One",
 				stepHasChanges:false,

@@ -36,6 +36,8 @@
 			}
 		};
 		
+		_wizardList.defaultWizard = _defaultWizard;
+		
 		// Create a new empty wizard object on
 		// _wizardList
 		service.createWizard = function(wizardName){
@@ -108,7 +110,7 @@
 				_stepProperties.isLastStep = data.isLastStep;
 				_stepProperties.stepData = data.stepData;
 			};
-			_wizardList[wizardName]["steps"][stepNumber] = _stepProperties;
+			_wizardList[wizardName]['steps'][stepNumber] = _stepProperties;
 		};
 		
 		// Removes a step from a given wizard.
@@ -135,7 +137,9 @@
 		};
 		
 		service.getStepFlags = function(wizardName, stepNumber){
-			return _wizardList[wizardName]["steps"][stepNumber];
+			console.log(stepNumber);
+			console.log(_wizardList[wizardName]['steps'][stepNumber]);
+			return _wizardList[wizardName]['steps'][stepNumber];
 		};
 		
 		return service;

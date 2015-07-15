@@ -18,7 +18,7 @@
 			controller: function($scope,wizardServiceApi, $compile) {
 				var vm = this;
 				
-				vm.templateUrl = "http://localhost/conjurer.template.html";
+				vm.templateUrl = "conjurer.template.html";
 				console.log(vm.templateUrl);
 				
 				vm.wizardName = $scope.wizname;
@@ -35,13 +35,13 @@
 					
 					// get current step
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);			
-					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardname,vm.currentStep);
+					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					
 					// if this is the first step, there is no previous step
 					if (!stepFlags.isFirstStep){
 						// peek destination step - canEnter?
 						canEnterPrevious = wizardServiceApi.getStepProperty(
-							vm.wizardname,(vm.currentStep-1),'canEnter');						
+							vm.wizardName,(vm.currentStep-1),'canEnter');						
 					};
 					// can exit this step and enter next step
 					if (canEnterPrevious && stepFlags.canExit) {
@@ -57,20 +57,26 @@
 					var canEnterNext = true;
 					
 					// get current step
-					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);			
-					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardname,vm.currentStep);
+					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+					console.log("vm.moveNext: vm.currentStep: " + vm.currentStep);
+					
+					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+					console.log("stepFlags: " + stepFlags);
 					
 					// if this is the first step, there is no previous step
 					if (!stepFlags.isLastStep){
 						// peek destination step - canEnter?
 						canEnterNext = wizardServiceApi.getStepProperty(
-							vm.wizardname,(vm.currentStep+1),'canEnter');						
+							vm.wizardName,(vm.currentStep+1),'canEnter');						
 					};
 					// can exit this step and enter next step
-					if (canEnterNext && stepFlags.canExit) {
-						wizardServiceApi.setCurrentStep(vm.wizardName,vm.currentStep+1);
-						vm.currentStep = vm.currentStep++;
-					}	
+					if (canEnterNext===true && stepFlags.canExit===true) {
+						console.log("Can move next.");
+						var newStep = Number(vm.currentStep) +1;
+						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
+						vm.currentStep = newStep;
+						console.log("Updated current step: " + vm.currentStep);
+					};	
 					// TODO: update controller and set new step active
 
 					// if this is the last step, change the button to be a finish button
@@ -78,6 +84,20 @@
 				};
 				
 				vm.goTo = function(stepNumer){
+					var canEnterNext = false;
+					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+					if (!stepFlags.isLastStep){
+						canEnterNext = wizardServiceApi.getStepProperty(
+							vm.wizardName,(stepNumber),'canEnter');						
+					};
+					if (canEnterNext===true && stepFlags.canExit===true) {
+						console.log("Can move next.");
+						var newStep = Number(vm.currentStep) +1;
+						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
+						vm.currentStep = newStep;
+						console.log("Updated current step: " + vm.currentStep);
+					};
 					// check to see if current step can exit
 					// check to see if destination step can enter
 					// update directive to display new step
@@ -89,14 +109,12 @@
 				
 			},
 			controllerAs: 'vm',
-			template: '<div><div><ul>' +
-						'<li ng-repeat="(key,value) in vm.wizardSteps" ng-click="vm.goTo(key)" ng-class="{"btn btn-success": key == vm.currentStep, "btn btn-primary": key !== vm.currentStep}">{{value.stepName}}</li>' +
-					'</ul></div><div>' +
-					'<div ng-if="vm.currentStep == 1">Step one directive.</div><div ng-if="vm.currentStep ==2">Step two directive.</div>' +
-				'</div><div>' +
-					'<button type="button" class="btn btn-info" ng-click="vm.movePrevious()">Previous</button>' +
-					'<button type="button" class="btn btn-info" ng-click="vm.moveNext()">Next</next>' +
-				'</div>'
+			template: "<div><div><ul>" +
+					"<li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)'>{{value.stepName}}</li>" +
+					"</ul></div><div>" +
+					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div></div><div>" +
+					"<button type='button' class='btn btn-info' ng-click='vm.movePrevious()'>Previous</button>" +
+					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>Next</next></div>"
 		}
 	}
 })();
