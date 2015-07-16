@@ -150,29 +150,9 @@
 						else {
 							$(this).hide();
 						};
-						//$(this).attr('ngShow',true);
 					});
-					// angular.forEach(angular.element('[step-number]'), function(key,){
-					// 	console.log('An element:', $(value));
-					// 	$(value).attr('ngShow',true);
-						// console.log('The key:',key);
-						// console.log('Element attribute value:',value.attr(['stepNumber']));
-						// if (value === data) {
-						// 	angular.element('[step-number]="'+value+'"').attr('ngShow',true);
-						// } else{
-						// 	angular.element('[step-number]="'+value+'"').attr('ngShow',false);
-						// }
-				// });
-								});
-				//var myEl = elm.find('[step-number]').each()
-				//console.log("My element:",myEl);
-				
+				});
 			}
 		}
 	}
 })();
-
-// ngular.forEach(angular.element("li a"), function(value, key){
-//      var a = angular.element(value);
-//      a.addClass('ss');
-// });
