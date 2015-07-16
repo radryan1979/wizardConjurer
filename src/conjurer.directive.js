@@ -33,7 +33,6 @@
 				};
 				
 				jQuery("[step-number]").each(function() {
-						console.log("Did I get called?");
 						if (jQuery(this).attr('step-number') == vm.currentStep) {
 							jQuery(this).show();
 						}
@@ -97,7 +96,6 @@
 					
 					if (canEnterNext===true && stepFlags.canExit===true) {
 						var newStep = currentStep +1;
-						console.log("newStep:",newStep);
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
 						vm.updateDisplay();
@@ -146,12 +144,8 @@
 					
 			link: function(scope,elm,attrs){
 				scope.$watch('vm.currentStep', function(data){
-					console.log("Current Step Changed!", data);
 					jQuery("[step-number]").each(function() {
-						console.log('An element',jQuery(this));
-						console.log(jQuery(this).attr('step-number'));
 						if (jQuery(this).attr('step-number') == data) {
-								console.log("Setting directive to show:");
 								jQuery(this).show();
 						}
 						else {
