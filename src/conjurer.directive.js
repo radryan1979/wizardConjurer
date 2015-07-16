@@ -135,7 +135,7 @@
 			controllerAs: 'vm',
 			template: "<div>"+
 					"<div class='row'>"+
-					"<ul><li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)' role='presentation' ng-class=\"{'btn btn-sucess': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li></ul>"+
+					"<ul><li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)' role='presentation' ng-class=\"{'btn btn-primary active': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li></ul>"+
 					"</div>"+
 					"<div class='row col-md-10'><div class='col-md-8'><ng-transclude></ng-transclude></div><div>" +
 					"<div class='row col-md-10'><div class='col-md-6'>&nbsp;</div>"+
