@@ -20,24 +20,25 @@
 				
 				vm.nextButtonText = "Next";
 				vm.wizardName = $scope.wizname;
-				vm.currentStep = null;
 				vm.wizardSteps = null;
 				vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 				vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
 				
 				var startingStep = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+				console.log(startingStep);
 				if (startingStep.isFirstStep === true){
 					vm.showPrevious = false;
 				} else {
 					vm.showPrevious = true;
 				};
 				
-				$("[step-number]").each(function() {
-						if ($(this).attr('step-number') == startingStep) {
-							$(this).show();
+				jQuery("[step-number]").each(function() {
+						console.log("Did I get called?");
+						if (jQuery(this).attr('step-number') == vm.currentStep) {
+							jQuery(this).show();
 						}
 						else {
-							$(this).hide();
+							jQuery(this).hide();
 						};
 					});
 				
@@ -55,7 +56,7 @@
 							vm.wizardName,(vm.currentStep-1),'canEnter');
 						vm.showPrevious = true;					
 					} else {
-						alert("This is the first step of the wizard.");
+						//alert("This is the first step of the wizard.");
 						vm.showPrevious = false;
 						return;
 					}
@@ -75,23 +76,24 @@
 					var canEnterNext = true;
 					vm.showPrevious = true;
 					// get current step
-					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					
-					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
 					
 					// if this is the first step, there is no previous step
 					if (stepFlags.isLastStep){
 						vm.nextButtonText = "Finish";
-						alert("This is the last step of the wizard.");
+						//alert("This is the last step of the wizard.");
 					} else {
 						// peek destination step - canEnter?
 						canEnterNext = wizardServiceApi.getStepProperty(
-							vm.wizardName,(vm.currentStep+1),'canEnter');
+							vm.wizardName,(currentStep+1),'canEnter');
 						vm.nextButtonText = "Next";				
 					}
 					// can exit this step and enter next step
 					if (canEnterNext===true && stepFlags.canExit===true) {
-						var newStep = Number(vm.currentStep) +1;
+						var newStep = currentStep +1;
+						console.log("newStep:",newStep);
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
 					} else {
@@ -105,11 +107,11 @@
 				
 				vm.goTo = function(stepNumber){
 					var canEnterNext = false;
-					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
-					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
 					if (stepFlags.isLastStep){
 						vm.nextButtonText = "Finish";
-						alert("This is the last step of the wizard.");
+						//alert("This is the last step of the wizard.");
 					} else {
 						vm.nextButtonText = "Next";
 						canEnterNext = wizardServiceApi.getStepProperty(
@@ -125,30 +127,37 @@
 					
 				};
 				
+				vm.finishWizard = function(){
+					// nothing yet
+				};
+				
 				$scope.$on('$destroy', function() {
 					wizardServiceApi.removeWizard(name);					
 				});
 				
 			},
 			controllerAs: 'vm',
-			template: "<div><div><ul>" +
-					"<li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)' role='presentation' ng-class=\"{'btn btn-sucess': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li>" +
-					"</ul></div><div>" +
-					"<div ng-if='vm.currentStep == 1'>Step one directive.</div><div ng-if='vm.currentStep == 2'>Step two directive.</div><div ng-if='vm.currentStep == 3'>Step three directive."+
-					"</div><ng-transclude></ng-transclude></div><div>" +
-					"<button type='button' class='btn btn-info' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>Previous</button>" +
-					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>{{ vm.nextButtonText }}</next></div>",
+			template: "<div>"+
+					"<div class='row'><div class='col-md-8'>"+
+					"<ul><li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)' role='presentation' ng-class=\"{'btn btn-sucess': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li></ul>"+
+					"</div></div>"+
+					"<div class='row'><div class='col-md-8'><ng-transclude></ng-transclude></div><div>" +
+					"<div class='row'><div class='col-md-8'><button type='button' class='btn btn-info' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>Previous</button>" +
+					"<button type='button' class='btn btn-info' ng-click='vm.moveNext()'>{{ vm.nextButtonText }}</button></div></div>"+
+					"</div",
+					
 			link: function(scope,elm,attrs){
 				scope.$watch('vm.currentStep', function(data){
 					console.log("Current Step Changed!", data);
-					$("[step-number]").each(function() {
-						console.log('An element',$(this));
-						console.log($(this).attr('step-number'));
-						if ($(this).attr('step-number') === data) {
-								$(this).show();
+					jQuery("[step-number]").each(function() {
+						console.log('An element',jQuery(this));
+						console.log(jQuery(this).attr('step-number'));
+						if (jQuery(this).attr('step-number') == data) {
+								console.log("Setting directive to show:");
+								jQuery(this).show();
 						}
 						else {
-							$(this).hide();
+							jQuery(this).hide();
 						};
 					});
 				});

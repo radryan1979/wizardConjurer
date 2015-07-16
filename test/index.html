@@ -6,13 +6,18 @@
 		<title>ngConjurer Test Example</title>
 	</head>
 	<body ng-controller="ctrl">
-		<h1>Wizard Controller Test</h1>
-		<hr>
+		<div class='col-lg-12'>
+			<h1>Wizard Controller Test</h1>
+			<hr>
+			<div class='col-lg-2'></div>
+			<div class='col-lg-10'>
 		<wizard-control ng-if="isReady" wizard-name="ryanswizard">
 			<my-step wizard-name="ryanswizard" step-number=1 id="step1"></my-step>
 			<my-step wizard-name="ryanswizard" step-number=2 id="step2"></my-step>
 			<my-step wizard-name="ryanswizard" step-number=3 id="step2"></my-step>
 		</wizard-control>
+		</div>
+		</div>
 		
 		<!-- We need jQuery in addition to AngularJS for this plugin. -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 

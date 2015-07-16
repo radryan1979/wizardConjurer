@@ -48,18 +48,28 @@
 			};
 			},
 		controllerAs: 'wizStepVm',
-		template: 	"<div><h2>This is step {{wizStepVm.stepName}}</h2><p>Use the below buttons to toggle the properties of the step.</p>"+
-					"<p><blockquote>You can not change these:</blockquote><span>IsFirstStep: {{wizStepVm.stepIsFirstStep}}</span><br>"+
-					"<span>IsLastStep: {{wizStepVm.stepIsLastStep}}</span>"+
-					"<p><h3>Step has changes:</h3><span>Current value: {{wizStepVm.stepHasChanges}}</span>"+
-					"<button type='button' class='btn btn-info' ng-click='wizStepVm.toggleHasChanges()'>Toggle stepHasChanges</button>"+
-					"</p><p><h3>Step is complete:</h3><span>Current value: {{wizStepVm.stepIsComplete}}</span>"+
-					"<button type='button' class='btn btn-info' ng-click='wizStepVm.toggleIsComplete()'>Toggle stepComplete</button>"+
-					"</p><p><h3>Step can enter:</h3>	<span>Current value: {{wizStepVm.stepCanEnter}}</span>"+
-					"<button type='button' class='btn btn-info' ng-click='wizStepVm.toggleCanEnter()'>Toggle canEnter</button>"+
-					"</p><p><h3>Step can exit:</h3><span>Current value: {{wizStepVm.stepCanExit}}</span>"+
-					"<button type='button' class='btn btn-info' ng-click='wizStepVm.toggleCanExit()'>Toggle canExit</button>"+
-					"</p></div>",
+		template: 	"<div class='col-sm-10'>" +
+                        "<div class='row'><h2>This is step {{wizStepVm.stepName}}</h2><p>Use the below buttons to toggle the properties of the step.</p>" +
+                            "<p><blockquote>You can not change these:</blockquote><span>IsFirstStep: {{wizStepVm.stepIsFirstStep}}</span><br>" +
+                            "<span>IsLastStep: {{wizStepVm.stepIsLastStep}}</span>" +
+                        "</div>" +
+                        "<div class='row'>"+
+                            "<div class='col-sm-6'><p><h4>Step has changes:</h3><span>Current value:<strong> {{wizStepVm.stepHasChanges}} </strong></span></p></div>" +
+                            "<div class='col-sm-4'><button type='button' class='btn btn-info' ng-click='wizStepVm.toggleHasChanges()'>Toggle stepHasChanges</button></div>" +
+                        "</div>" +
+                        "<div class='row'>" +
+                            "<div class='col-sm-6'><p><h4>Step is complete:</h3><span>Current value:<strong> {{wizStepVm.stepIsComplete}} </strong></span></p></div>" +
+                            "<div class='col-sm-4'><button type='button' class='btn btn-info' ng-click='wizStepVm.toggleIsComplete()'>Toggle stepComplete</button></div>" +
+                        "</div>" +
+                        "<div class='row'>" +
+                            "<div class='col-sm-6'><p><h4>Step can enter:</h3>	<span>Current value:<strong> {{wizStepVm.stepCanEnter}} </strong></span></p></div>" +
+                            "<div class='col-sm-4'><button type='button' class='btn btn-info' ng-click='wizStepVm.toggleCanEnter()'>Toggle canEnter</button></div>" +
+                        "</div>" +
+                        "<div class='row'>" +
+                            "<div class='col-sm-6'><p><h4>Step can exit:</h3><span>Current value:<strong> {{wizStepVm.stepCanExit}} </strong></span></p></div>" +
+                            "<div class='col-sm-4'><button type='button' class='btn btn-info' ng-click='wizStepVm.toggleCanExit()'>Toggle canExit</button></div>" +
+                        "</div>" +
+                       "</div>",
 		}
 	}
 	
