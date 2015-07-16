@@ -20,7 +20,6 @@
 			wizardName: "defaultWizard",
 			currentStep:0,
 			onFinish:function(){},
-			onCancel:function(){},
 			numberOfSteps:0,
 			steps: {
 				1:{
@@ -137,6 +136,7 @@
 			return _wizardList[wizardName]['steps'][stepNumber][propertyName];
 		};
 		
+		// Return the properties of a step.
 		service.getStepFlags = function(wizardName, stepNumber){
 			return _wizardList[wizardName]['steps'][stepNumber];
 		};

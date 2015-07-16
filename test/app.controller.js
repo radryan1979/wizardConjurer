@@ -4,15 +4,16 @@
 	angular.module('app')
 	.controller('ctrl', ctrl);
 	
-	ctrl.$inject = ['$scope','wizardServiceApi','$rootScope'];
+	ctrl.$inject = ['$scope','wizardServiceApi'];
 	
-	function ctrl($scope,wizardServiceApi,$rootScope){
+	function ctrl($scope,wizardServiceApi){
 		// Don't display the directive until we have constructed
 		// the wizard.
 		$scope.isReady = false;
 		wizardServiceApi.createWizard("ryanswizard");
 		wizardServiceApi.setCurrentStep("ryanswizard",1);
 		wizardServiceApi.setWizardProperty("ryanswizard","numberOfSteps",3)
+		wizardServiceApi.setWizardProperty("ryanswizard","onFinish",function(){alert("You clicked finish.");})
 		wizardServiceApi.addStep("ryanswizard",1,{
 				stepName:"Step One",
 				stepHasChanges:false,
@@ -44,7 +45,6 @@
 				stepData:{}
 		});
 		var mywizard = wizardServiceApi.getWizardObject("ryanswizard");
-		console.log(mywizard);
 		// The wizard has been constructed, we can now show
 		// the directive.
 		$scope.isReady = true;

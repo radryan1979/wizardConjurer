@@ -32,6 +32,7 @@
 					vm.showPrevious = true;
 				};
 				
+				// Configure the initial nested directives visibility
 				jQuery("[step-number]").each(function() {
 						if (jQuery(this).attr('step-number') == vm.currentStep) {
 							jQuery(this).show();
@@ -41,6 +42,7 @@
 						};
 					});
 				
+				// Called to update the navigation buttons after a step change.
 				vm.updateDisplay = function(){
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					if (stepFlags.isFirstStep) {
@@ -85,7 +87,6 @@
 				vm.moveNext = function(){
 					var canEnterNext = false;
 					vm.showPrevious = true;
-					// get current step
 					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
 					var nextStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep+1);
@@ -120,11 +121,14 @@
 				};
 				
 				vm.finishWizard = function(){
-					alert("You clicked finish.");
+					var onFinishFunction = wizardServiceApi.getWizardProperty(vm.wizardName,'onFinish');
+					onFinishFunction();
 				};
 				
+				// When the directive goes out of scope, remove the wizard
+				// from the service.
 				$scope.$on('$destroy', function() {
-					wizardServiceApi.removeWizard(name);					
+					wizardServiceApi.removeWizard(vm.wizardName);					
 				});
 				
 			},
@@ -143,6 +147,9 @@
 					"</div",
 					
 			link: function(scope,elm,attrs){
+				// When the current step updates, find the nested
+				// directives in the wizard-control directive by
+				// step-number attribute and toggle visibility accordingly.
 				scope.$watch('vm.currentStep', function(data){
 					jQuery("[step-number]").each(function() {
 						if (jQuery(this).attr('step-number') == data) {
