@@ -32,6 +32,15 @@
 					vm.showPrevious = true;
 				};
 				
+				$("[step-number]").each(function() {
+						if ($(this).attr('step-number') == startingStep) {
+							$(this).show();
+						}
+						else {
+							$(this).hide();
+						};
+					});
+				
 				vm.movePrevious = function(){
 					var canEnterPrevious = false;
 					
@@ -74,8 +83,6 @@
 					if (stepFlags.isLastStep){
 						vm.nextButtonText = "Finish";
 						alert("This is the last step of the wizard.");
-						return;
-							
 					} else {
 						// peek destination step - canEnter?
 						canEnterNext = wizardServiceApi.getStepProperty(
@@ -103,7 +110,6 @@
 					if (stepFlags.isLastStep){
 						vm.nextButtonText = "Finish";
 						alert("This is the last step of the wizard.");
-						return;
 					} else {
 						vm.nextButtonText = "Next";
 						canEnterNext = wizardServiceApi.getStepProperty(
@@ -137,13 +143,12 @@
 					console.log("Current Step Changed!", data);
 					$("[step-number]").each(function() {
 						console.log('An element',$(this));
-						console.log($(this).attr('ng-show'));
 						console.log($(this).attr('step-number'));
 						if ($(this).attr('step-number') === data) {
-							if ($(this).attr('ng-show') !== undefined){
-								$(this).removeAttr('ng-hide');
-								$(this).attr('ng-show',true);	
-							}
+								$(this).show();
+						}
+						else {
+							$(this).hide();
 						};
 						//$(this).attr('ngShow',true);
 					});
