@@ -44,7 +44,6 @@
 				isLastStep:true,
 				stepData:{}
 		});
-		var mywizard = wizardServiceApi.getWizardObject("ryanswizard");
 		// The wizard has been constructed, we can now show
 		// the directive.
 		$scope.isReady = true;
