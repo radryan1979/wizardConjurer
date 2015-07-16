@@ -135,11 +135,39 @@
 			link: function(scope,elm,attrs){
 				scope.$watch('vm.currentStep', function(data){
 					console.log("Current Step Changed!", data);
-				});
-				var myEl = elm.find('');
-				console.log(myEl);
+					$("[step-number]").each(function() {
+						console.log('An element',$(this));
+						console.log($(this).attr('ng-show'));
+						console.log($(this).attr('step-number'));
+						if ($(this).attr('step-number') === data) {
+							if ($(this).attr('ng-show') !== undefined){
+								$(this).removeAttr('ng-hide');
+								$(this).attr('ng-show',true);	
+							}
+						};
+						//$(this).attr('ngShow',true);
+					});
+					// angular.forEach(angular.element('[step-number]'), function(key,){
+					// 	console.log('An element:', $(value));
+					// 	$(value).attr('ngShow',true);
+						// console.log('The key:',key);
+						// console.log('Element attribute value:',value.attr(['stepNumber']));
+						// if (value === data) {
+						// 	angular.element('[step-number]="'+value+'"').attr('ngShow',true);
+						// } else{
+						// 	angular.element('[step-number]="'+value+'"').attr('ngShow',false);
+						// }
+				// });
+								});
+				//var myEl = elm.find('[step-number]').each()
+				//console.log("My element:",myEl);
 				
 			}
 		}
 	}
 })();
+
+// ngular.forEach(angular.element("li a"), function(value, key){
+//      var a = angular.element(value);
+//      a.addClass('ss');
+// });
