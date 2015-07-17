@@ -5,7 +5,7 @@
 	angular.module('conjurer')
 	.directive('wizardControl', wizardControl);
 	
-	wizardControl.$inject = ['wizardServiceApi','$compile'];
+	wizardControl.$inject = ['wizardServiceApi'];
 	
 	function wizardControl(wizardServiceApi,$transclude,$compile){
 		return {
@@ -65,12 +65,12 @@
 					var canEnterPrevious = false;
 					
 					// get current step
-					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);			
+					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));			
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					var previousStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep-1);
 					
 					if (previousStepFlags !== undefined){
-							canEnterPrevious = previousStepFlags.canEnter;			
+							canEnterPrevious = previousStepFlags.canEnter;		
 						};
 					
 					// can exit this step and enter next step
@@ -86,12 +86,12 @@
 				
 				vm.moveNext = function(){
 					var canEnterNext = false;
-					vm.showPrevious = true;
-					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
 					var nextStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep+1);
 					
 					if (nextStepFlags !== undefined){
+						
 						canEnterNext = nextStepFlags.canEnter;
 					};
 					
