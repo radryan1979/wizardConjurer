@@ -71,15 +71,11 @@
 			if (_wizardList.hasOwnProperty(wizardName)) {
 				delete _wizardList[wizardName];
 			};
-			if ($rootScope.wizard.hasOwnProperty(wizardName)){
-				delete $rootScope.wizard[wizardName];
-			}
 		};
 		
 		// Set the current step for a given wizard.
 		service.setCurrentStep = function(wizardName, data){
 			_wizardList[wizardName]['currentStep'] = data;
-			$rootScope.$broadcast("currentWizardStepUpdated");
 		};
 		
 		// Return current step for a given wizard.
