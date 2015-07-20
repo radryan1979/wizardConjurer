@@ -83,18 +83,18 @@
 					// get current step
 					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));			
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
-					var previousStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep-1);
+					var previousStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep - 1);
 					
 					if (previousStepFlags !== undefined){
 							canEnterPrevious = previousStepFlags.canEnter;		
 						};
 					
 					// can exit this step and enter next step
-					if (canEnterPrevious===true && stepFlags.canExit===true) {
+					if (canEnterPrevious === true && stepFlags.canExit === true) {
 						var newStep = vm.currentStep - 1;
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
-						vm.updateDisplay();
+						updateDisplay();
 					} else {
 						alert("This step is not complete.");
 					};
@@ -104,18 +104,18 @@
 					var canEnterNext = false;
 					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
-					var nextStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep+1);
+					var nextStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep + 1);
 					
 					if (nextStepFlags !== undefined){
 						
 						canEnterNext = nextStepFlags.canEnter;
 					};
 					
-					if (canEnterNext===true && stepFlags.canExit===true) {
-						var newStep = currentStep +1;
-						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
+					if (canEnterNext === true && stepFlags.canExit===true) {
+						var newStep = currentStep + 1;
+						wizardServiceApi.setCurrentStep(vm.wizardName, newStep);
 						vm.currentStep = newStep;
-						vm.updateDisplay();
+						updateDisplay();
 					} else {
 						alert("This step is not complete.");
 					};
@@ -129,10 +129,10 @@
 					if (nextStepFlags !== undefined){
 						canEnterStep = nextStepFlags.canEnter;
 					};
-					if (canEnterStep===true && stepFlags.canExit===true) {
-						wizardServiceApi.setCurrentStep(vm.wizardName,stepNumber);
+					if (canEnterStep === true && stepFlags.canExit === true) {
+						wizardServiceApi.setCurrentStep(vm.wizardName, stepNumber);
 						vm.currentStep = stepNumber;
-						vm.updateDisplay();
+						updateDisplay();
 					};
 				};
 				
