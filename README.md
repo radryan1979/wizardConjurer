@@ -5,14 +5,14 @@
   1. [About] (#about)
   1. [Using ngConjurer] (#using-ngconjurer)
   1. [Custom Directives] (#custom-directives)
-  1. [Serivce API Details] (#service-api-details)
+  1. [Service API Details] (#service-api-details)
   1. [Future Plans] (#future-plans)
 
 ## About
 
 ng-Conjurer is an angular wizard control that allows you to use your own directives with minimal customization as individual steps within the wizard. ng-Conjurer provides a directive that supports transclusion of your directives when nested, but does not require inherited scope or a required parent controller, instead you inject the service into your directives and use the service api for all communication between your directives and the wizard-control directive. 
 
-The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizards and customizing the steps. ng-Conjurer provides the follow features:
+The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizards and customizing the steps. ng-Conjurer provides the follow features (see [Service API Details](#service-api-details) section for the wizard object definition):
 
 	* Create and delete multiple named wizards
 	* Create as many steps as needed
