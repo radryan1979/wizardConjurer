@@ -50,11 +50,11 @@ In your controller you will need to inject the ng-Conjurer service named wizardS
 		// Don't display the directive until we have constructed
 		// the wizard.
 		$scope.isReady = false;
-		wizardServiceApi.createWizard("ryanswizard");
-		wizardServiceApi.setCurrentStep("ryanswizard",1);
-		wizardServiceApi.setWizardProperty("ryanswizard","numberOfSteps",3)
-		wizardServiceApi.setWizardProperty("ryanswizard","onFinish",function(){alert("You clicked finish.");})
-		wizardServiceApi.addStep("ryanswizard",1,{
+		wizardServiceApi.createWizard("myWizard");
+		wizardServiceApi.setCurrentStep("myWizard",1);
+		wizardServiceApi.setWizardProperty("myWizard","numberOfSteps",3)
+		wizardServiceApi.setWizardProperty("myWizard","onFinish",function(){alert("You clicked finish.");})
+		wizardServiceApi.addStep("myWizard",1,{
 				stepName:"Step One",
 				stepHasChanges:false,
 				canEnter:true,
@@ -64,7 +64,7 @@ In your controller you will need to inject the ng-Conjurer service named wizardS
 				isLastStep:false,
 				stepData:{}
 		});
-		wizardServiceApi.addStep("ryanswizard",2,{
+		wizardServiceApi.addStep("myWizard",2,{
 				stepName:"Step Two",
 				stepHasChanges:false,
 				canEnter:true,
@@ -74,7 +74,7 @@ In your controller you will need to inject the ng-Conjurer service named wizardS
 				isLastStep:false,
 				stepData:{}
 		});
-		wizardServiceApi.addStep("ryanswizard",3,{
+		wizardServiceApi.addStep("myWizard",3,{
 				stepName:"Step Three",
 				stepHasChanges:false,
 				canEnter:true,
@@ -110,7 +110,7 @@ scope: {
 				},
 ```
 Next you will want to inject the wizardServiceApi into your directive. Below is an example custom directive called myStep:
-```
+```javascript
 (function(){
 	'use strict';
 	
