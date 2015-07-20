@@ -17,16 +17,17 @@ The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizar
 	* Create and delete multiple named wizards
 	* Create as many steps as needed
 	* Store step specific data
-	* Manage state for individual steps:
-	  * Can enter a step
-	  * Can exit a step
-	  * Step has changes
-	  * Step is complete
-	  * Step is the first step
-	  * Step is the last step
 	* Provide custom call back fucntion on finish
 	* Navigate via next and previous buttons
 	* Navigate via navigation bar
+
+You can also manage the state for individual steps:
+	* Can enter a step
+	* Can exit a step
+	* Step has changes
+	* Step is complete
+	* Step is the first step
+	* Step is the last step
 
 ## Using ngConjurer
 
