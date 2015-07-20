@@ -197,5 +197,11 @@ The JavaScript object for a wizard and corresponding steps follows the structure
 
 ## Future Plans
 
+Goals for future development. Contributors welcome.
+
+* Package management.
+* Remove direct jQuery dependency.
+* Implement ng-if on nested directives.
+
 **[Back to Top](#topics)**
 
