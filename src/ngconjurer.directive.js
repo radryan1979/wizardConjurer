@@ -18,22 +18,37 @@
 			controller: function($scope,wizardServiceApi, $compile) {
 				var vm = this;
 				
+				// Controller properties
 				vm.showFinish = false;
 				vm.wizardName = $scope.wizname;
 				vm.wizardSteps = null;
-				vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
-				vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
+				vm.currentStep = null;
+				vm.wizardSteps = null;
 				
-				var startingStep = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
-				if (startingStep.isFirstStep === true){
-					vm.showPrevious = false;
-					vm.showNext = true;
-				} else {
-					vm.showPrevious = true;
-				};
+				// Controller methods
+				vm.movePrevious = movePrevious;
+				vm.moveNext = moveNext;
+				vm.goToStep = goToStep;
+				vm.finishWizard = finishWizard;
 				
-				// Configure the initial nested directives visibility
-				jQuery("[step-number]").each(function() {
+				// Initialize the controller
+				initialize();
+				
+				function initialize(){
+					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
+					vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
+					
+					var startingStep = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
+					
+					if (startingStep.isFirstStep === true){
+							vm.showPrevious = false;
+							vm.showNext = true;
+						} else {
+							vm.showPrevious = true;
+						};
+					
+					// Configure the initial nested directives visibility
+					jQuery("[step-number]").each(function() {
 						if (jQuery(this).attr('step-number') == vm.currentStep) {
 							jQuery(this).show();
 						}
@@ -41,9 +56,10 @@
 							jQuery(this).hide();
 						};
 					});
+				};
 				
 				// Called to update the navigation buttons after a step change.
-				vm.updateDisplay = function(){
+				function updateDisplay(){
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					if (stepFlags.isFirstStep) {
 						vm.showPrevious = false;
@@ -61,7 +77,7 @@
 					};
 				};
 				
-				vm.movePrevious = function(){
+				function movePrevious(){
 					var canEnterPrevious = false;
 					
 					// get current step
@@ -84,7 +100,7 @@
 					};
 				};
 				
-				vm.moveNext = function(){
+				function moveNext(){
 					var canEnterNext = false;
 					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
@@ -105,7 +121,7 @@
 					};
 				};
 				
-				vm.goTo = function(stepNumber){
+				function goToStep(stepNumber){
 					var canEnterStep = false;
 					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
@@ -120,7 +136,7 @@
 					};
 				};
 				
-				vm.finishWizard = function(){
+				function finishWizard(){
 					var onFinishFunction = wizardServiceApi.getWizardProperty(vm.wizardName,'onFinish');
 					onFinishFunction();
 				};
@@ -135,7 +151,7 @@
 			controllerAs: 'vm',
 			template: "<div>"+
 					"<div class='row'>"+
-					"<ul><li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goTo(key)' role='presentation' ng-class=\"{'btn btn-primary active': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li></ul>"+
+					"<ul><li ng-repeat='(key,value) in vm.wizardSteps' ng-click='vm.goToStep(key)' role='presentation' ng-class=\"{'btn btn-primary active': key == vm.currentStep, 'btn btn-primary': key !== vm.currentStep}\">{{value.stepName}}</li></ul>"+
 					"</div>"+
 					"<div class='row col-md-10'><div class='col-md-8'><ng-transclude></ng-transclude></div><div>" +
 					"<div class='row col-md-10'><div class='col-md-6'>&nbsp;</div>"+

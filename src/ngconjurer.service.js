@@ -38,6 +38,8 @@
 			createWizard		: createWizard,
 			setWizardProperty	: setWizardProperty,
 			getWizardProperty	: getWizardProperty,
+			setWizardData		: setWizardData,
+			getWizardData		: getWizardData,
 			getWizardObject		: getWizardObject,
 			removeWizard		: removeWizard,
 			setCurrentStep		: setCurrentStep,
@@ -61,7 +63,8 @@
 				onFinish		: null,
 				onCancel		: null,
 				numberOfSteps	: 0,
-				steps			: {}
+				steps			: {},
+				data			: {}
 			};
 		};
 		
@@ -73,6 +76,16 @@
 		// Gets a property for a given wizard.
 		function getWizardProperty(wizardName, propertyName){
 			return _wizardList[wizardName][propertyName];
+		};
+		
+		// Replace the data object on the wizard with a new one
+		function setWizardData(wizardName, data){
+			_wizardList[wizardName]['data'] = data;
+		};
+		
+		// Returns the data object on the wizard
+		function getWizardData(wizardName){
+			return _wizardList[wizardName]['data'];
 		};
 		
 		// Returns the entire object for a given wizard
@@ -150,6 +163,16 @@
 		// Return the properties of a step.
 		function getStepFlags(wizardName, stepNumber){
 			return _wizardList[wizardName]['steps'][stepNumber];
+		};
+		
+		// Returns the stepData object
+		function getStepData(wizardName, stepNumber){
+			return _wizardList[wizardName]['steps'][stepNumber]['stepData'];
+		};
+		
+		// Returns the stepData object
+		function setStepData(wizardName, stepNumber, data){
+			_wizardList[wizardName]['steps'][stepNumber]['stepData'] = data;
 		};
 	};	
 })();
