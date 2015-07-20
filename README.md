@@ -34,15 +34,15 @@ Once you have acquire the source code of ng-Conjurer, add the scripts to your ht
 ```html
 <html ng-app="app">
 ...
-<script src="../src/conjurer.module.js"></script>
-<script src="../src/conjurer.service.js"></script>
-<script src="../src/conjurer.directive.js"></script>
+<script src="../src/ngconjurer.module.js"></script>
+<script src="../src/ngconjurer.service.js"></script>
+<script src="../src/ngconjurer.directive.js"></script>
 ...
 </html>
 ```
 Now add a reference to your angular app:
 ```javascript
-angular.module('app',['conjurer']);
+angular.module('app',['ngConjurer']);
 ```
 To add the directive to your html document:
 ````html
