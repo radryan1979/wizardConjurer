@@ -12,7 +12,7 @@
 
 ng-Conjurer is an angular wizard control that allows you to use your own directives with minimal customization as individual steps within the wizard. ng-Conjurer provides a directive that supports transclusion of your directives when nested, but does not require inherited scope or a required parent controller, instead you inject the service into your directives and use the service api for all communication between your directives and the wizard-control directive. 
 
-The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizards and customizing the steps. ng-Conjurer provides the follow features (see [Service API Details](#service-api-details) section for the wizard object definition):
+The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizards and customizing the steps. ng-Conjurer provides the following features (see [Service API Details](#service-api-details) section for the wizard object definition):
 
 	* Create and delete multiple named wizards
 	* Create as many steps as needed
@@ -68,10 +68,15 @@ In your controller you will need to inject the ng-Conjurer service named `wizard
 		// Don't display the directive until we have constructed
 		// the wizard.
 		$scope.isReady = false;
+		// Create a new wizard named myWizard
 		wizardServiceApi.createWizard("myWizard");
+		// Set the current step to 1
 		wizardServiceApi.setCurrentStep("myWizard",1);
+		// Configure the total number of steps
 		wizardServiceApi.setWizardProperty("myWizard","numberOfSteps",3)
+		// Add a function to execute when the user clicks finish
 		wizardServiceApi.setWizardProperty("myWizard","onFinish",function(){alert("You clicked finish.");})
+		// Add my three steps and their default settings
 		wizardServiceApi.addStep("myWizard",1,{
 				stepName:"Step One",
 				stepHasChanges:false,
@@ -158,7 +163,9 @@ Next you will want to inject the wizardServiceApi into your directive. Below is 
 	}
 })();
 ```
-Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi.
+Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi. ng-Conjurer uses the jQuery .show/.hide method to show the current step and hide all other non-active steps. It uses the `step-number` attribute on your directive to determine the identification of the steps and manipulate them.
+
+In your directive you can control the wizard's logic by changing the state of the step through the `wizardServiceApi`. 
 
 **[Back to Top](#topics)**
 
