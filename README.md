@@ -3,7 +3,7 @@
 ## Topics
 
   1. [About] (#about)
-  1. [Using ngConjurer] (#using-ngConjurer)
+  1. [Using ngConjurer] (#using-ngconjurer)
   1. [Custom Directives] (#custom-directives)
   1. [Serivce API Details] (#service-api-details)
   1. [Future Plans] (#future-plans)
@@ -94,6 +94,7 @@ To make sure the `wizard-control` directive doesn't load until my controller has
 ```html
 <wizard-control ng-if="isReady" wizard-name="myWizard">
 ```
+
 **[Back to Top](#topics)**
 
 ## Custom Directives
@@ -140,10 +141,14 @@ Next you will want to inject the wizardServiceApi into your directive. Below is 
 })();
 ```
 Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi.
+
 **[Back to Top](#topics)**
+
 ## Service API Details
 
 **[Back to Top](#topics)**
+
 ## Future Plans
 
 **[Back to Top](#topics)**
+
