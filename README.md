@@ -194,6 +194,57 @@ The JavaScript object for a wizard and corresponding steps follows the structure
 }
 ```
 
+The available methods in the `wizardServiceApi` are below with their parameters and description.
+
+```javascript
+
+// Creates a new wizard, takes a string as the wizardName.
+function createWizard(wizardName) {...}
+
+// Sets a named property on the wizard. 
+function setWizardProperty(wizardName, propertyName, data) {...}
+
+// Returns a named property on the wizard.
+function getWizardProperty(wizardName, propertyName) {...}
+
+// Returns the entire wizard object.
+function getWizardObject(wizardName) {...}
+
+// Removes a wizard. 
+function removeWizard(wizardName) {...}
+
+// Set the current step.
+function setCurrentStep(wizardname, data) {...}
+
+// Returns the current step of the wizard.
+function getCurrentStep(wizardName) {...}
+
+// Add a new step to the wizard, data is a step object.
+function addStep(wizardName, stepNumber, data) {...}
+
+// Removes a step from the wizard, does not renumber the steps.
+function removeStep(wizardName, stepNumber) {...}
+
+// Returns a dictionary of the wizard steps.
+function getWizardSteps(wizardName) {...}
+
+// Set a specific step property.
+function setStepProperty(wizardName, stepNumber, propertyName, data) {...}
+
+// Get a specifc step property.
+function getStepProperty(wizardName, stepNumber, propertyName) {...}
+
+// Return the state flags for a specific step.
+function getStepFlags(wizardName, stepNumber) {...}
+
+// Return the stepData dictionary.
+function getStepData(wizardName, stepNumber) {...}
+
+// Replace the stepData with a new dictionary.
+function setStepData(wizardName, stepNumber, data) {...}
+
+```
+
 **[Back to Top](#topics)**
 
 ## Future Plans
