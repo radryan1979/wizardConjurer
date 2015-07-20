@@ -163,26 +163,26 @@ Your directive will use the `_wizName` and `_stepNum` to identify and communicat
 
 ## Service API Details
 
-The JSON for a wizard and corresponding steps follows the structure below:
-```JSON
+The JavaScript object for a wizard and corresponding steps follows the structure below:
+```javascript
 {
-			wizardName: "defaultWizard",
-			currentStep:0,
-			onFinish:function(){},
-			numberOfSteps:0,
-			steps: {
-				1:{
-					stepName:"step one",
-					stepHasChanges:false,
-					canEnter:false,
-					canExit:false,
-					stepComplete:false,
-					isFirstStep:false,
-					isLastStep:false,
-					stepData:{}
-				}
+	wizardName: "defaultWizard",
+	currentStep:0,
+	onFinish:function(){},
+	numberOfSteps:0,
+	steps: {
+		1:	{
+			stepName:"step one",
+			stepHasChanges:false,
+			canEnter:false,
+			canExit:false,
+			stepComplete:false,
+			isFirstStep:false,
+			isLastStep:false,
+			stepData:{}
 			}
 		}
+}
 ```
 
 **[Back to Top](#topics)**
