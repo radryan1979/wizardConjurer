@@ -12,7 +12,7 @@
 
 ## Using ng-Conjurer
 
-'''javascript
+```html
 <html ng-app="app">
 ...
 <script src="../src/conjurer.module.js"></script>
@@ -20,7 +20,7 @@
 <script src="../src/conjurer.directive.js"></script>
 
 </html>
-'''
+```
 
 ## Custom Directives
 
