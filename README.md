@@ -10,6 +10,23 @@
 
 ## About
 
+ng-Conjurer is an angular wizard control that allows you to use your own directives with minimal customization as individual steps within the wizard. ng-Conjurer provides a directive that supports transclusion of your directives when nested, but does not require inherited scope or a required parent controller, instead you inject the service into your directives and use the service api for all communication between your directives and the wizard-control directive. 
+
+The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizards and customizing the steps. ng-Conjurer provides the follow features:
+	* Create and delete multiple named wizards
+	* Create as many steps as needed
+	* Store step specific data
+	* Manage state for individual steps:
+		* Can enter a step
+		* Can exit a step
+		* Step has changes
+		* Step is complete
+		* Step is the first step
+		* Step is the last step
+	* Provide custom call back fucntion on finish
+	* Navigate via next and previous buttons
+	* Navigate via navigation bar
+
 ## Using ngConjurer
 
 Once you have acquire the source code of ng-Conjurer, add the scripts to your html.
@@ -145,6 +162,28 @@ Your directive will use the `_wizName` and `_stepNum` to identify and communicat
 **[Back to Top](#topics)**
 
 ## Service API Details
+
+The JSON for a wizard and corresponding steps follows the structure below:
+```JSON
+{
+			wizardName: "defaultWizard",
+			currentStep:0,
+			onFinish:function(){},
+			numberOfSteps:0,
+			steps: {
+				1:{
+					stepName:"step one",
+					stepHasChanges:false,
+					canEnter:false,
+					canExit:false,
+					stepComplete:false,
+					isFirstStep:false,
+					isLastStep:false,
+					stepData:{}
+				}
+			}
+		}
+```
 
 **[Back to Top](#topics)**
 
