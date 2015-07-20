@@ -1,5 +1,5 @@
 (function(){
 	'use strict';
 	
-	angular.module('conjurer',[]);
+	angular.module('ngConjurer',[]);
 })();
