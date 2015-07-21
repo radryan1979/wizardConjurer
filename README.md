@@ -1,18 +1,18 @@
-# ng-Conjurer: An Angular Wizard Control
+# wizardConjurer: An Angular Wizard Control
 
 ## Topics
 
   1. [About] (#about)
-  1. [Using ngConjurer] (#using-ngconjurer)
+  1. [Using wizardConjurer] (#using-wizardConjurer)
   1. [Custom Directives] (#custom-directives)
   1. [Service API Details] (#service-api-details)
   1. [Future Plans] (#future-plans)
 
 ## About
 
-ng-Conjurer is an angular wizard control that allows you to use your own directives with minimal customization as individual steps within the wizard. ng-Conjurer provides a directive that supports transclusion of your directives when nested, but does not require inherited scope or a required parent controller, instead you inject the service into your directives and use the service api for all communication between your directives and the wizard-control directive. 
+wizardConjurer is an angular wizard control that allows you to use your own directives with minimal customization as individual steps within the wizard. wizardConjurer provides a directive that supports transclusion of your directives when nested, but does not require inherited scope or a required parent controller, instead you inject the service into your directives and use the service api for all communication between your directives and the wizard-control directive. 
 
-The wizardServiceApi in ng-Conjurer provides methods for creating multiple wizards and customizing the steps. ng-Conjurer provides the following features (see [Service API Details](#service-api-details) section for the wizard object definition):
+The wizardServiceApi in wizardConjurer provides methods for creating multiple wizards and customizing the steps. wizardConjurer provides the following features (see [Service API Details](#service-api-details) section for the wizard object definition):
 
 * Create and delete multiple named wizards
 * Create as many steps as needed
@@ -29,21 +29,21 @@ You can also manage the state for individual steps:
 * Step is the first step
 * Step is the last step
 
-## Using ngConjurer
+## Using wizardConjurer
 
-Once you have acquire the source code of ng-Conjurer, add the scripts to your html.
+Once you have acquire the source code of wizardConjurer, add the scripts to your html.
 ```html
 <html ng-app="app">
 ...
-<script src="../src/ngconjurer.module.js"></script>
-<script src="../src/ngconjurer.service.js"></script>
-<script src="../src/ngconjurer.directive.js"></script>
+<script src="../src/wizardConjurer.module.js"></script>
+<script src="../src/wizardConjurer.service.js"></script>
+<script src="../src/wizardConjurer.directive.js"></script>
 ...
 </html>
 ```
 Now add a reference to your angular app:
 ```javascript
-angular.module('app',['ngConjurer']);
+angular.module('app',['wizardConjurer']);
 ```
 To add the directive to your html document:
 ````html
@@ -55,7 +55,7 @@ To add the directive to your html document:
 ```
 The only attribute the `wizard-control` directive has is the `wizard-name` attribute and it is required. This provides a unique named instance that is used when communicating between the directives and conjurer service.
 
-In your controller you will need to inject the ng-Conjurer service named `wizardServiceApi`. You can then use the service to create a new named wizard and begin to set the properties:
+In your controller you will need to inject the wizardConjurer service named `wizardServiceApi`. You can then use the service to create a new named wizard and begin to set the properties:
 ```javascript
 (function(){
 	'use strict';
@@ -123,13 +123,13 @@ To make sure the `wizard-control` directive doesn't load until my controller has
 
 ## Custom Directives
 
-Any directives that are to be used within the `wizard-control` directive will need to be modified to work with ng-Conjurer. The directives may have an isolated scope and are not required to inherit the parent scope or require the wizard-control directive's controller instace either.
+Any directives that are to be used within the `wizard-control` directive will need to be modified to work with wizardConjurer. The directives may have an isolated scope and are not required to inherit the parent scope or require the wizard-control directive's controller instace either.
 
 The first customization is to add the following attributes to your directive's scope:
 ```javascript
 // These are required for the directives to function
 // within the wizard-control directive and talk to
-// the ng-Conjurer service.
+// the wizardConjurer service.
 scope: {
 				wizardName: '@wizardName',
 				stepNumber: '@stepNumber'
@@ -164,7 +164,7 @@ Next you will want to inject the wizardServiceApi into your directive. Below is 
 	}
 })();
 ```
-Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi. ng-Conjurer uses the jQuery .show/.hide method to show the current step and hide all other non-active steps. It uses the `step-number` attribute on your directive to determine the identification of the steps and manipulate them.
+Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi. wizardConjurer uses the jQuery .show/.hide method to show the current step and hide all other non-active steps. It uses the `step-number` attribute on your directive to determine the identification of the steps and manipulate them.
 
 In your directive you can control the wizard's logic by changing the state of the step through the `wizardServiceApi`. For example, upon entering a step I might not want the user to be able to move to the next step until they have provided all the required information. When the user enters the step I can set the `canExit` flag to false and let my validation logic set it true again when validation has passed.
 ```javascript

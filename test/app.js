@@ -1,2 +1,2 @@
-// Test app to demonstrate ngConjurer Wizard Control
-angular.module('app',['ngConjurer']);
+// Test app to demonstrate wizardConjurer Wizard Control
+angular.module('app',['wizardConjurer']);

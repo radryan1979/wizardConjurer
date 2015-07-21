@@ -2,7 +2,7 @@
 (function() {
 	'use strict';
 	
-	angular.module('ngConjurer')
+	angular.module('wizardConjurer')
 	.directive('wizardControl', wizardControl);
 	
 	wizardControl.$inject = ['wizardServiceApi'];

@@ -1,7 +1,7 @@
 (function(){
 	'use strict';
 	
-	angular.module('ngConjurer')
+	angular.module('wizardConjurer')
 	
 	.factory('wizardServiceApi', wizardServiceApi);
 	
