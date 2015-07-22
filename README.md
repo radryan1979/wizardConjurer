@@ -277,6 +277,9 @@ Goals for future development. Contributors welcome.
 * Package management.
 * Remove direct jQuery dependency.
 * Implement ng-if on nested directives.
+* Allow customization of previous/next/finish button text.
+* Update navigation bar with chevron style buttons.
+* Allow for providing custom template to the wizard-control directive via the API.
 
 **[Back to Top](#topics)**
 
