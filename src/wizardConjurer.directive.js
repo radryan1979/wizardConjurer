@@ -19,17 +19,21 @@
 				var vm = this;
 				
 				// Controller properties
-				vm.showFinish = false;
 				vm.wizardName = $scope.wizname;
 				vm.wizardSteps = null;
 				vm.currentStep = null;
 				vm.wizardSteps = null;
+				vm.showPrevious = false;
+				vm.showNext = false;
+				vm.showCancel = false;
+				vm.btnPreviousText = null;
+				vm.btnNextText = null;
+				vm.btnCancelText = null;
 				
 				// Controller methods
 				vm.movePrevious = movePrevious;
 				vm.moveNext = moveNext;
 				vm.goToStep = goToStep;
-				vm.finishWizard = finishWizard;
 				
 				// Initialize the controller
 				initialize();
@@ -38,15 +42,8 @@
 					vm.currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
 					
-					var startingStep = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
-					
-					if (startingStep.isFirstStep === true){
-							vm.showPrevious = false;
-							vm.showNext = true;
-						} else {
-							vm.showPrevious = true;
-						};
-					
+					updateDisplay();
+										
 					// Configure the initial nested directives visibility
 					jQuery("[step-number]").each(function() {
 						if (jQuery(this).attr('step-number') == vm.currentStep) {
@@ -59,22 +56,19 @@
 				};
 				
 				// Called to update the navigation buttons after a step change.
-				function updateDisplay(){
-					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
-					if (stepFlags.isFirstStep) {
-						vm.showPrevious = false;
-						vm.showNext = true;
-						};
-					if (stepFlags.isLastStep) {
-						vm.showNext = false;
-						vm.showFinish = true;
-						vm.showPrevious = true;
-						};
-					if (!stepFlags.isLastStep) {
-						vm.showNext = true;
-						vm.showFinish = false;
-						vm.showPrevious = true;
-					};
+				function updateDisplay()
+				{
+					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
+					
+					// Set visibility for the buttons on this step
+					vm.showPrevious = stepButtons.btnPrevious.isVisible;
+					vm.showNext = stepButtons.btnNext.isVisible;
+					vm.showCancel = stepButtons.btnCancel.isVisible;
+					
+					// Set the display text for the buttons on this step
+					vm.btnPreviousText = stepButtons.btnPrevious.displayText;
+					vm.btnNextText = stepButtons.btnNext.displayText;
+					vm.btnCancel = stepButtons.btnCancel.displayText;
 				};
 				
 				function movePrevious(){
@@ -84,6 +78,7 @@
 					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));			
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					var previousStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep - 1);
+					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardnae,vm.currentStep);
 					
 					if (previousStepFlags !== undefined){
 							canEnterPrevious = previousStepFlags.canEnter;		
@@ -95,6 +90,11 @@
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
 						updateDisplay();
+						// Run the custom button function if it is defined.
+						if (stepButtons.btnPrevious.onClick !== undefined)
+						{
+							stepButtons.btnPrevious.onClick;
+						}
 					} else {
 						alert("This step is not complete.");
 					};
@@ -136,11 +136,6 @@
 					};
 				};
 				
-				function finishWizard(){
-					var onFinishFunction = wizardServiceApi.getWizardProperty(vm.wizardName,'onFinish');
-					onFinishFunction();
-				};
-				
 				// When the directive goes out of scope, remove the wizard
 				// from the service.
 				$scope.$on('$destroy', function() {
@@ -156,9 +151,8 @@
 					"<div class='row col-md-10'><div class='col-md-8'><ng-transclude></ng-transclude></div><div>" +
 					"<div class='row col-md-10'><div class='col-md-6'>&nbsp;</div>"+
 					"<div class='col-md-4'>" +
-                        "<button type='button' class='btn btn-primary' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>Previous</button>" +
-					    "<button type='button' class='btn btn-primary' ng-click='vm.moveNext()' ng-show='vm.showNext'>Next</button>" +
-                        "<button type='button' class='btn btn-primary' ng-click='vm.finishWizard()' ng-show='vm.showFinish'>Finish</button>"+
+                        "<button type='button' class='btn btn-primary' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>{{ vm.btnPreviousText }}</button>" +
+					    "<button type='button' class='btn btn-primary' ng-click='vm.moveNext()' ng-show='vm.showNext'>{{ vm.btnNextText }}</button>" +
                     "</div></div>" +
 					"</div",
 					

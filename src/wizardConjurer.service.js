@@ -5,7 +5,8 @@
 	
 	.factory('wizardServiceApi', wizardServiceApi);
 	
-	function wizardServiceApi(){
+	function wizardServiceApi()
+	{
 		var _wizardList = {
 			"defaultWizard" : {}
 		};
@@ -15,7 +16,6 @@
 		var _defaultWizard = {
 			wizardName		: "defaultWizard",
 			currentStep		:0,
-			onFinish		:function(){},
 			numberOfSteps	:0,
 			steps: {
 				1:{
@@ -23,10 +23,29 @@
 					stepHasChanges	:false,
 					canEnter		:false,
 					canExit			:false,
+					onEnter			:function(){},
+					onExit			:function(){},
 					stepComplete	:false,
 					isFirstStep		:false,
 					isLastStep		:false,
-					stepData		:{}
+					stepData		:{},
+					buttons			:{
+										btnPrevious:	{ 
+															displayText: "Previous",
+															isVisible: true,
+															onClick: function(){}
+														},
+										btnNext:		{
+															displayText: "Next",
+															isVisible: true,
+															onClick: function(){}
+														},
+										btnCancel:		{
+															displayText: "Cancel",
+															isVisible: false,
+															onClick: function(){}
+														}
+										}
 				}
 			}
 		};
@@ -49,19 +68,19 @@
 			getWizardSteps		: getWizardSteps,
 			setStepProperty		: setStepProperty,
 			getStepProperty		: getStepProperty,
-			getStepFlags		: getStepFlags
+			getStepFlags		: getStepFlags,
+			getStepButtons		: getStepButtons
 		};
 		
 		return service;
 		
 		// Create a new empty wizard object on
 		// _wizardList
-		function createWizard(wizardName){
+		function createWizard(wizardName)
+			{
 			_wizardList[wizardName] = {
 				wizardName		: wizardName,
 				currentStep		: 0,
-				onFinish		: null,
-				onCancel		: null,
 				numberOfSteps	: 0,
 				steps			: {},
 				data			: {}
@@ -69,110 +88,154 @@
 		};
 		
 		// Sets a property for a given wizard.
-		function setWizardProperty(wizardName, propertyName, data){
+		function setWizardProperty(wizardName, propertyName, data)
+		{
 			_wizardList[wizardName][propertyName] = data;
 		};
 		
 		// Gets a property for a given wizard.
-		function getWizardProperty(wizardName, propertyName){
+		function getWizardProperty(wizardName, propertyName)
+		{
 			return _wizardList[wizardName][propertyName];
 		};
 		
 		// Replace the data object on the wizard with a new one
-		function setWizardData(wizardName, data){
+		function setWizardData(wizardName, data)
+		{
 			_wizardList[wizardName]['data'] = data;
 		};
 		
 		// Returns the data object on the wizard
-		function getWizardData(wizardName){
+		function getWizardData(wizardName)
+		{
 			return _wizardList[wizardName]['data'];
 		};
 		
 		// Returns the entire object for a given wizard
 		// on the _wizardList
-		function getWizardObject(wizardName){
+		function getWizardObject(wizardName)
+		{
 			return _wizardList[wizardName];
 		};
 		
 		// Remove an existing wizard from _wizardList
-		function removeWizard(wizardName){
+		function removeWizard(wizardName)
+		{
 			if (_wizardList.hasOwnProperty(wizardName)) {
 				delete _wizardList[wizardName];
 			};
 		};
 		
 		// Set the current step for a given wizard.
-		function setCurrentStep(wizardName, data){
+		function setCurrentStep(wizardName, data)
+		{
 			_wizardList[wizardName]['currentStep'] = data;
 		};
 		
 		// Return current step for a given wizard.
-		function getCurrentStep(wizardName){
+		function getCurrentStep(wizardName)
+		{
 			return _wizardList[wizardName]['currentStep'];
 		};
 		
 		// Adds a new step to a given wizard. If the data param
 		// is null or an empty object, the step properties are
 		// filled with default values.
-		function addStep(wizardName, stepNumber, data) {
+		function addStep(wizardName, stepNumber, data) 
+		{
 			var _stepProperties = {
 				stepName		:"",
 				stepHasChanges	:false,
 				canEnter		:true,
 				canExit			:false,
+				onEnter			:null,
+				onExit			:null,
 				stepComplete	:false,
 				isFirstStep		:false,
 				isLastStep		:false,
-				stepData		:{}
+				stepData		:{},
+				buttons:{
+					btnPrevious:	{ 
+										displayText: "Previous",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnNext:		{
+										displayText: "Next",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnCancel:		{
+										displayText: "Cancel",
+										isVisible: false,
+										onClick: function(){}
+									}
+						}
 			};
 			if (data !== null || data !== {}){
 				_stepProperties.stepName = data.stepName;
 				_stepProperties.stepHasChanges = data.stepHasChanges;
 				_stepProperties.canEnter = data.canEnter;
 				_stepProperties.canExit = data.canExit;
+				_stepProperties.onEnter = data.onEnter;
+				_stepProperties.onExit = data.onExit;
 				_stepProperties.stepComplete = data.stepComplete;
 				_stepProperties.isFirstStep = data.isFirstStep;
 				_stepProperties.isLastStep = data.isLastStep;
+				_stepProperties.buttons = data.buttons;
 				_stepProperties.stepData = data.stepData;
 			};
 			_wizardList[wizardName]['steps'][stepNumber] = _stepProperties;
 		};
 		
 		// Removes a step from a given wizard.
-		function removeStep(wizardName, stepNumber){
+		function removeStep(wizardName, stepNumber)
+		{
 			if (_wizardList[wizardName].hasOwnProperty(stepNumber)) {
 				delete _wizardList[wizardName][stepNumber];
 			};
 		};
 		
 		// Returns the steps
-		function getWizardSteps(wizardName){
+		function getWizardSteps(wizardName)
+		{
 			return _wizardList[wizardName]['steps'];
 		};
 		
 		// Used to set any of the properties on a given step.
-		function setStepProperty(wizardName, stepNumber, propertyName, data){
+		function setStepProperty(wizardName, stepNumber, propertyName, data)
+		{
 			_wizardList[wizardName]['steps'][stepNumber][propertyName] = data;
 		};
 		
 		// Return the value of any property on a given step.
-		function getStepProperty(wizardName, stepNumber, propertyName){
+		function getStepProperty(wizardName, stepNumber, propertyName)
+		{
 			return _wizardList[wizardName]['steps'][stepNumber][propertyName];
 		};
 		
 		// Return the properties of a step.
-		function getStepFlags(wizardName, stepNumber){
+		function getStepFlags(wizardName, stepNumber)
+		{
 			return _wizardList[wizardName]['steps'][stepNumber];
 		};
 		
 		// Returns the stepData object
-		function getStepData(wizardName, stepNumber){
+		function getStepData(wizardName, stepNumber)
+		{
 			return _wizardList[wizardName]['steps'][stepNumber]['stepData'];
 		};
 		
 		// Returns the stepData object
-		function setStepData(wizardName, stepNumber, data){
+		function setStepData(wizardName, stepNumber, data)
+		{
 			_wizardList[wizardName]['steps'][stepNumber]['stepData'] = data;
 		};
+		
+		// Returns the button object for a step
+		function getStepButtons(wizardName, stepNumber)
+		{
+			return _wizardList[wizardName]['steps'][stepNumber]['buttons'];
+		}
 	};	
 })();

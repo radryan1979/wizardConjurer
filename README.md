@@ -83,30 +83,87 @@ In your controller you will need to inject the wizardConjurer service named `wiz
 				stepHasChanges:false,
 				canEnter:true,
 				canExit:true,
+				onEnter:null;,
+				onExit:null,
 				stepComplete:false,
 				isFirstStep:true,
 				isLastStep:false,
-				stepData:{}
+				stepData:{},
+				buttons:{
+					btnPrevious:	{ 
+										displayText: "Previous",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnNext:		{
+										displayText: "Next",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnCancel:		{
+										displayText: "Cancel",
+										isVisible: false,
+										onClick: function(){}
+									}
+						}
 		});
 		wizardServiceApi.addStep("myWizard",2,{
 				stepName:"Step Two",
 				stepHasChanges:false,
 				canEnter:true,
 				canExit:true,
+				onEnter:null,
+				onExit:null,
 				stepComplete:false,
 				isFirstStep:false,
 				isLastStep:false,
-				stepData:{}
+				stepData:{},
+				buttons:{
+					btnPrevious:	{ 
+										displayText: "Previous",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnNext:		{
+										displayText: "Next",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnCancel:		{
+										displayText: "Cancel",
+										isVisible: false,
+										onClick: function(){}
+									}
+						}
 		});
 		wizardServiceApi.addStep("myWizard",3,{
 				stepName:"Step Three",
 				stepHasChanges:false,
 				canEnter:true,
 				canExit:true,
+				onEnter:null,
+				onExit:null,
 				stepComplete:false,
 				isFirstStep:false,
 				isLastStep:true,
-				stepData:{}
+				stepData:{},
+				buttons:{
+					btnPrevious:	{ 
+										displayText: "Previous",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnNext:		{
+										displayText: "Next",
+										isVisible: true,
+										onClick: function(){}
+									},
+					btnCancel:		{
+										displayText: "Cancel",
+										isVisible: false,
+										onClick: function(){}
+									}
+						}
 		});
 		// The wizard has been constructed, we can now show
 		// the directive.
@@ -192,22 +249,38 @@ The JavaScript object for a wizard and corresponding steps follows the structure
 ```javascript
 {
 	wizardName		: "defaultWizard",
-	currentStep		: 0,
-	onFinish		: function(){},
-	numberOfSteps	: 0,
-	steps			: {
-		1:	{
-			stepName		: "step one",
-			stepHasChanges	: false,
-			canEnter		: false,
-			canExit			: false,
-			stepComplete	: false,
-			isFirstStep		: false,
-			isLastStep		: false,
-			stepData		: {},
-			}
-		},
-	data			: {}
+			currentStep		:0,
+			numberOfSteps	:0,
+			steps: {
+				1:{
+					stepName		:"step one",
+					stepHasChanges	:false,
+					canEnter		:false,
+					canExit			:false,
+					onEnter			:function(){},
+					onExit			:function(){},
+					stepComplete	:false,
+					isFirstStep		:false,
+					isLastStep		:false,
+					stepData		:{},
+					buttons			:{
+										btnPrevious:	{ 
+															displayText: "Previous",
+															isVisible: true,
+															onClick: function(){}
+														},
+										btnNext:		{
+															displayText: "Next",
+															isVisible: true,
+															onClick: function(){}
+														},
+										btnCancel:		{
+															displayText: "Cancel",
+															isVisible: false,
+															onClick: function(){}
+														}
+										}
+				}
 }
 ```
 
@@ -266,6 +339,9 @@ function getStepData(wizardName, stepNumber) {...}
 // Replace the stepData with a new dictionary.
 function setStepData(wizardName, stepNumber, data) {...}
 
+// Returns the button object for a step
+function getStepButtons(wizardName, stepNumber) {...}
+
 ```
 
 **[Back to Top](#topics)**
@@ -277,7 +353,6 @@ Goals for future development. Contributors welcome.
 * Package management.
 * Remove direct jQuery dependency.
 * Implement ng-if on nested directives.
-* Allow customization of previous/next/finish button text.
 * Update navigation bar with chevron style buttons.
 * Allow for providing custom template to the wizard-control directive via the API.
 
