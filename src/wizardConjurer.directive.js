@@ -78,7 +78,7 @@
 					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));			
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,vm.currentStep);
 					var previousStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep - 1);
-					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardnae,vm.currentStep);
+					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
 					
 					if (previousStepFlags !== undefined){
 							canEnterPrevious = previousStepFlags.canEnter;		
