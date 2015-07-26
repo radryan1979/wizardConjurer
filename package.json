@@ -1,0 +1,23 @@
+{
+  "name": "wizardConjurer",
+  "version": "0.3.0",
+  "description": "Angular plugin to create a wizard."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/radryan1979/wizardConjurer.git"
+  },
+  "keywords": [
+    "wizard",
+    "plugin",
+    "angular"
+  ],
+  "author": "Ryan Eagan <ryan.eagan@icloud.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/radryan1979/wizardConjurer/issues"
+  },
+  "homepage": "https://github.com/radryan1979/wizardConjurer",
+  "devDependencies": {
+  }
+}
