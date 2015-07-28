@@ -1,4 +1,9 @@
-
+interface IWizardButton
+{
+	ButtonDisplayText: string;
+	ButtonVisibility: boolean;
+	ButtonOnClick: () => void;;
+}
 
 interface IWizardStep
 {
@@ -10,11 +15,10 @@ interface IWizardStep
 	StepHasChanges: boolean;
 	CanEnter: boolean;
 	CanExit: boolean;
-	BtnPreviousText: string;
-	BtnNextText: string;
 	OnExit?: () => void;
 	OnEnter?: () => void;
-	StepData?: any;
+	Buttons: Object;
+	StepData?: Object;
 		
 }
 
@@ -31,7 +35,7 @@ interface IWizard
 
 interface IWizardList
 {
-	GetWizard(): IWizard;
-	AddWizard(): IWizard;
-	RemoveWizard(): IWizard;	
+	GetWizard(wizardName: string): IWizard;
+	AddWizard(wizardName: string): void;
+	RemoveWizard(wizardName: string): void;	
 }
