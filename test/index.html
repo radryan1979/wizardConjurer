@@ -12,9 +12,9 @@
 			<div class='col-lg-2'></div>
 			<div class='col-lg-10'>
 		<wizard-control ng-if="isReady" wizard-name="ryanswizard">
-			<my-step wizard-name="ryanswizard" step-number=1></my-step>
-			<my-step wizard-name="ryanswizard" step-number=2></my-step>
-			<my-step wizard-name="ryanswizard" step-number=3></my-step>
+			<my-step wizard-name="ryanswizard" step-number=1 ng-if="$parent.currentStep == 1"></my-step>
+			<my-step wizard-name="ryanswizard" step-number=2 ng-if="$parent.currentStep == 2"></my-step>
+			<my-step wizard-name="ryanswizard" step-number=3 ng-if="$parent.currentStep == 3"></my-step>
 		</wizard-control>
 		</div>
 		</div>
