@@ -45,19 +45,21 @@
 					updateDisplay();
 										
 					// Configure the initial nested directives visibility
-					jQuery("[step-number]").each(function() {
-						if (jQuery(this).attr('step-number') == vm.currentStep) {
-							jQuery(this).show();
-						}
-						else {
-							jQuery(this).hide();
-						};
-					});
+					// jQuery("[step-number]").each(function() {
+					// 	if (jQuery(this).attr('step-number') == vm.currentStep) {
+					// 		jQuery(this).show();
+					// 	}
+					// 	else {
+					// 		jQuery(this).hide();
+					// 	};
+					// });
 				};
 				
 				// Called to update the navigation buttons after a step change.
 				function updateDisplay()
 				{
+					console.log("updateDisplay() called.");
+					console.log("Current Step Number is: ", vm.currentStep);
 					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
 					
 					// Set visibility for the buttons on this step
@@ -69,6 +71,8 @@
 					vm.btnPreviousText = stepButtons.btnPrevious.displayText;
 					vm.btnNextText = stepButtons.btnNext.displayText;
 					vm.btnCancel = stepButtons.btnCancel.displayText;
+					
+					$scope.currentStep = parseInt(vm.currentStep);
 				};
 				
 				function movePrevious(){
@@ -156,21 +160,21 @@
                     "</div></div>" +
 					"</div",
 					
-			link: function(scope,elm,attrs){
-				// When the current step updates, find the nested
-				// directives in the wizard-control directive by
-				// step-number attribute and toggle visibility accordingly.
-				scope.$watch('vm.currentStep', function(data){
-					jQuery("[step-number]").each(function() {
-						if (jQuery(this).attr('step-number') == data) {
-								jQuery(this).show();
-						}
-						else {
-							jQuery(this).hide();
-						};
-					});
-				});
-			}
+			// link: function(scope,elm,attrs){
+			// 	// When the current step updates, find the nested
+			// 	// directives in the wizard-control directive by
+			// 	// step-number attribute and toggle visibility accordingly.
+			// 	scope.$watch('vm.currentStep', function(data){
+			// 		jQuery("[step-number]").each(function() {
+			// 			if (jQuery(this).attr('step-number') == data) {
+			// 					jQuery(this).show();
+			// 			}
+			// 			else {
+			// 				jQuery(this).hide();
+			// 			};
+			// 		});
+			// 	});
+			// }
 		}
 	}
 })();

@@ -69,7 +69,9 @@
 			setStepProperty		: setStepProperty,
 			getStepProperty		: getStepProperty,
 			getStepFlags		: getStepFlags,
-			getStepButtons		: getStepButtons
+			getStepButtons		: getStepButtons,
+			getStepData			: getStepData,
+			setStepData			: setStepData,
 		};
 		
 		return service;
