@@ -48,8 +48,6 @@
 				// Called to update the navigation buttons after a step change.
 				function updateDisplay()
 				{
-					console.log("updateDisplay() called.");
-					console.log("Current Step Number is: ", vm.currentStep);
 					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
 					
 					// Set visibility for the buttons on this step
