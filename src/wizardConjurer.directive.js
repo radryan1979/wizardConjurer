@@ -43,16 +43,6 @@
 					vm.wizardSteps = wizardServiceApi.getWizardSteps(vm.wizardName);
 					
 					updateDisplay();
-										
-					// Configure the initial nested directives visibility
-					// jQuery("[step-number]").each(function() {
-					// 	if (jQuery(this).attr('step-number') == vm.currentStep) {
-					// 		jQuery(this).show();
-					// 	}
-					// 	else {
-					// 		jQuery(this).hide();
-					// 	};
-					// });
 				};
 				
 				// Called to update the navigation buttons after a step change.
@@ -72,6 +62,7 @@
 					vm.btnNextText = stepButtons.btnNext.displayText;
 					vm.btnCancel = stepButtons.btnCancel.displayText;
 					
+					// Set a currentStep on $scope that can be watched by child directives
 					$scope.currentStep = parseInt(vm.currentStep);
 				};
 				
@@ -158,23 +149,7 @@
                         "<button type='button' class='btn btn-primary' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>{{ vm.btnPreviousText }}</button>" +
 					    "<button type='button' class='btn btn-primary' ng-click='vm.moveNext()' ng-show='vm.showNext'>{{ vm.btnNextText }}</button>" +
                     "</div></div>" +
-					"</div",
-					
-			// link: function(scope,elm,attrs){
-			// 	// When the current step updates, find the nested
-			// 	// directives in the wizard-control directive by
-			// 	// step-number attribute and toggle visibility accordingly.
-			// 	scope.$watch('vm.currentStep', function(data){
-			// 		jQuery("[step-number]").each(function() {
-			// 			if (jQuery(this).attr('step-number') == data) {
-			// 					jQuery(this).show();
-			// 			}
-			// 			else {
-			// 				jQuery(this).hide();
-			// 			};
-			// 		});
-			// 	});
-			// }
+					"</div>"
 		}
 	}
 })();

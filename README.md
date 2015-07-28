@@ -221,7 +221,14 @@ Next you will want to inject the wizardServiceApi into your directive. Below is 
 	}
 })();
 ```
-Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi. wizardConjurer uses the jQuery .show/.hide method to show the current step and hide all other non-active steps. It uses the `step-number` attribute on your directive to determine the identification of the steps and manipulate them.
+Your directive will use the `_wizName` and `_stepNum` to identify and communicate with the wizardServiceApi. You will also need to add the `ng-if` attribute to your directives like this:
+```html
+<myDirective wizard-name="myWizard" step-number=1 ng-if="$parent.currentStep == 1"></myDirective>
+```
+The wizard will update the `$parent.currentStep` on any navigation changes and therefore will remove the non-matched directives from the DOM. The advantage to using `ng-if` for showing and hiding directives is to allow your directive to behave normally and execute any initialization is may need. You may also use `ng-show` in exactly the same way if you would like.
+```html
+<myDirective wizard-name="myWizard" step-number=1 ng-show="$parent.currentStep == 1"></myDirective>
+```
 
 In your directive you can control the wizard's logic by changing the state of the step through the `wizardServiceApi`. For example, upon entering a step I might not want the user to be able to move to the next step until they have provided all the required information. When the user enters the step I can set the `canExit` flag to false and let my validation logic set it true again when validation has passed.
 ```javascript
@@ -351,10 +358,7 @@ function getStepButtons(wizardName, stepNumber) {...}
 Goals for future development. Contributors welcome.
 
 * Package management.
-* Remove direct jQuery dependency.
-* Implement ng-if on nested directives.
 * Update navigation bar with chevron style buttons.
-* Allow for providing custom template to the wizard-control directive via the API.
 
 **[Back to Top](#topics)**
 
