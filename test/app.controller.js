@@ -17,7 +17,7 @@
 				stepName:"Step One",
 				stepHasChanges:false,
 				canEnter:true,
-				canExit:true,
+				canExit:false,
 				stepComplete:false,
 				isFirstStep:true,
 				isLastStep:false,
@@ -26,12 +26,16 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: false,
-										onClick: null
+										onClick: null,
+										validateFunction: function(){console.log("Step One: Previous Validation Function")}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
-										onClick: null
+										onClick: null,
+										validateFunction: function(){
+											console.log("Step One: Next Validation Function");
+											}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
@@ -54,12 +58,16 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
-										onClick: null
+										onClick: null,
+										validateFunction: null
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
-										onClick: null
+										onClick: null,
+										validateFunction: function(){
+											console.log("Step Two: Next Validation Function");
+											}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
@@ -82,12 +90,14 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
-										onClick: null
+										onClick: null,
+										validateFunction: null
 									},
 					btnNext:		{
 										displayText: "Finish",
 										isVisible: true,
-										onClick: null
+										onClick: null,
+										validateFunction: null
 									},
 					btnCancel:		{
 										displayText: "Cancel",

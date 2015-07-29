@@ -64,7 +64,8 @@
 					$scope.currentStep = parseInt(vm.currentStep);
 				};
 				
-				function movePrevious(){
+				function movePrevious()
+				{
 					var canEnterPrevious = false;
 					
 					// get current step
@@ -73,56 +74,121 @@
 					var previousStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep - 1);
 					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
 					
-					if (previousStepFlags !== undefined){
+					if (previousStepFlags !== undefined)
+					{
 							canEnterPrevious = previousStepFlags.canEnter;		
-						};
+					};
+					
+					if (stepButtons.btnPrevious.validateFunction !== undefined 
+						&& stepButtons.btnPrevious.validateFunction !== null)
+					{
+						stepButtons.btnPrevious.validateFunction();
+					};
 					
 					// can exit this step and enter next step
-					if (canEnterPrevious === true && stepFlags.canExit === true) {
+					if (canEnterPrevious === true && stepFlags.canExit === true) 
+					{
 						var newStep = vm.currentStep - 1;
 						wizardServiceApi.setCurrentStep(vm.wizardName,newStep);
 						vm.currentStep = newStep;
-						updateDisplay();
+						
 						// Run the custom button function if it is defined.
-						if (stepButtons.btnPrevious.onClick !== undefined)
+						if (stepButtons.btnPrevious.onClick !== undefined 
+							&& stepButtons.btnPrevious.onClick !== null)
 						{
-							stepButtons.btnPrevious.onClick;
-						}
+							stepButtons.btnPrevious.onClick();
+						};
+						
+						updateDisplay();
 					} else {
 						alert("This step is not complete.");
 					};
 				};
 				
-				function moveNext(){
+				function moveNext()
+				{
 					var canEnterNext = false;
 					var currentStep = parseInt(wizardServiceApi.getCurrentStep(vm.wizardName));
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
 					var nextStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep + 1);
+					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
 					
-					if (nextStepFlags !== undefined){
-						
+					if (nextStepFlags !== undefined)
+					{
 						canEnterNext = nextStepFlags.canEnter;
 					};
 					
-					if (canEnterNext === true && stepFlags.canExit===true) {
+					if (stepButtons.btnNext.validateFunction !== undefined
+						 && stepButtons.btnNext.validateFunction !== null)
+					{
+						stepButtons.btnNext.validateFunction();
+					};
+					
+					if (canEnterNext === true && stepFlags.canExit===true) 
+					{
 						var newStep = currentStep + 1;
 						wizardServiceApi.setCurrentStep(vm.wizardName, newStep);
 						vm.currentStep = newStep;
+						
+						// Run the custom button function if it is defined.
+						if (stepButtons.btnNext.onClick !== undefined 
+							&& stepButtons.btnNext.onClick !== null)
+						{
+							stepButtons.btnNext.onClick();
+						};
+						
 						updateDisplay();
-					} else {
+					}
+					 else 
+					{
 						alert("This step is not complete.");
 					};
 				};
 				
-				function goToStep(stepNumber){
+				function goToStep(stepNumber)
+				{
 					var canEnterStep = false;
 					var currentStep = wizardServiceApi.getCurrentStep(vm.wizardName);
 					var stepFlags = wizardServiceApi.getStepFlags(vm.wizardName,currentStep);
 					var nextStepFlags = wizardServiceApi.getStepFlags(vm.wizardName,stepNumber);
-					if (nextStepFlags !== undefined){
+					var stepButtons = wizardServiceApi.getStepButtons(vm.wizardName,vm.currentStep);
+					
+					if (parseInt(stepNumber) < parseInt(currentStep))
+					{
+						if (stepButtons.btnPrevious.validateFunction !== undefined 
+						&& stepButtons.btnPrevious.validateFunction !== null)
+						{
+							stepButtons.btnPrevious.validateFunction();
+						};
+						// Run the custom button function if it is defined.
+						if (stepButtons.btnPrevious.onClick !== undefined 
+							&& stepButtons.btnPrevious.onClick !== null)
+						{
+							stepButtons.btnPrevious.onClick();
+						};
+					}
+					else if (parseInt(stepNumber) > parseInt(currentStep))
+					{
+						if (stepButtons.btnNext.validateFunction !== undefined
+						 && stepButtons.btnNext.validateFunction !== null)
+						{
+							stepButtons.btnNext.validateFunction();
+						};
+						// Run the custom button function if it is defined.
+						if (stepButtons.btnNext.onClick !== undefined &&
+							stepButtons.btnNext.onClick !== null)
+						{
+							stepButtons.btnNext.onClick();
+						};
+					};
+					
+					if (nextStepFlags !== undefined)
+					{
 						canEnterStep = nextStepFlags.canEnter;
 					};
-					if (canEnterStep === true && stepFlags.canExit === true) {
+					
+					if (canEnterStep === true && stepFlags.canExit === true) 
+					{
 						wizardServiceApi.setCurrentStep(vm.wizardName, stepNumber);
 						vm.currentStep = stepNumber;
 						updateDisplay();
