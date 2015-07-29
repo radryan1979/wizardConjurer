@@ -29,6 +29,10 @@ You can also manage the state for individual steps:
 * Step is the first step
 * Step is the last step
 
+Step Buttons Can Execute Functions:
+* Validation Functions
+* On Click Functions
+
 ## Using wizardConjurer
 
 Once you have acquire the source code of wizardConjurer, add the scripts to your html.
@@ -93,17 +97,20 @@ In your controller you will need to inject the wizardConjurer service named `wiz
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
 										isVisible: false,
-										onClick: function(){}
+										onClick: null,
+										validateFunction: null
 									}
 						}
 		});
@@ -122,17 +129,20 @@ In your controller you will need to inject the wizardConjurer service named `wiz
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
 										isVisible: false,
-										onClick: function(){}
+										onClick: null,
+										validateFunction: null
 									}
 						}
 		});
@@ -151,17 +161,20 @@ In your controller you will need to inject the wizardConjurer service named `wiz
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
 										isVisible: false,
-										onClick: function(){}
+										onClick: null,
+										validateFunction: null
 									}
 						}
 		});
@@ -244,6 +257,7 @@ I can also use the `canEnter` feature to prevent the user from returning to a pr
 // My directive controller calls this method on entering step 4
 wizardServiceApi.setStepProperty('myWizard',3,'canEnter',false);
 ```
+You can also use the `validateFunction` property on a Next or Previous button to run a validation function against data and set the state of the step before the navigation logic checks the current step's state.
 You can use the `stepHasChanges` and `stepComplete` flags in similar ways to help control the logic and flow of your wizard.
 
 The other feature you can take advantage of is the `stepData` feature. This provides a means to store user data from each wizard step where it can be accessed by any other steps. Providing a step level data store allows for an easy way to clear multiple step data if needed. 

@@ -33,12 +33,14 @@
 										btnPrevious:	{ 
 															displayText: "Previous",
 															isVisible: true,
-															onClick: function(){}
+															onClick: function(){},
+															validateFunction: function(){}
 														},
 										btnNext:		{
 															displayText: "Next",
 															isVisible: true,
-															onClick: function(){}
+															onClick: function(){},
+															validateFunction: function(){}
 														},
 										btnCancel:		{
 															displayText: "Cancel",
@@ -160,12 +162,14 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
-										onClick: function(){}
+										onClick: function(){},
+										validateFunction: function(){}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
