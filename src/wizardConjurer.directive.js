@@ -41,7 +41,7 @@
 				
 				$rootScope.$on('wizardConurerUpdateDisplay', function(){
 					updateDisplay();
-				})
+				});
 				
 				// Initialize the controller
 				initialize();
@@ -66,7 +66,7 @@
 					// Set the display text for the buttons on this step
 					vm.btnPreviousText = stepButtons.btnPrevious.displayText;
 					vm.btnNextText = stepButtons.btnNext.displayText;
-					vm.btnCancel = stepButtons.btnCancel.displayText;
+					vm.btnCancelText = stepButtons.btnCancel.displayText;
 					
 					// Enable or disbale the buttons
 					vm.disablePrevious = stepButtons.btnPrevious.isDisabled;

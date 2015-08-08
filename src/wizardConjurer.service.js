@@ -87,7 +87,7 @@
 		// Create a new empty wizard object on
 		// _wizardList
 		function createWizard(wizardName)
-			{
+		{
 			_wizardList[wizardName] = {
 				wizardName		: wizardName,
 				currentStep		: 0,
@@ -118,7 +118,7 @@
 			_wizardList[wizardName]['data'] = data;
 			if (update == true){
 				updateDisplay();
-			}
+			};
 		};
 		
 		// Returns the data object on the wizard
@@ -148,7 +148,7 @@
 			_wizardList[wizardName]['currentStep'] = data;
 			if (update == true){
 				updateDisplay();
-			}
+			};
 		};
 		
 		// Return current step for a given wizard.
@@ -177,18 +177,21 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
+										isDisabled: false,
 										onClick: function(){},
 										validateFunction: function(){}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
+										isDisabled: false,
 										onClick: function(){},
 										validateFunction: function(){}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
 										isVisible: false,
+										isDisabled: false,
 										onClick: function(){}
 									}
 						}
@@ -209,7 +212,7 @@
 			_wizardList[wizardName]['steps'][stepNumber] = _stepProperties;
 			if (update == true){
 				updateDisplay();
-			}
+			};
 		};
 		
 		// Removes a step from a given wizard.
@@ -232,7 +235,7 @@
 			_wizardList[wizardName]['steps'][stepNumber][propertyName] = data;
 			if (update == true){
 				updateDisplay();
-			}
+			};
 		};
 		
 		// Return the value of any property on a given step.
@@ -259,7 +262,7 @@
 			_wizardList[wizardName]['steps'][stepNumber]['stepData'] = data;
 			if (update == true){
 				updateDisplay();
-			}
+			};
 		};
 		
 		// Returns the button object for a step
