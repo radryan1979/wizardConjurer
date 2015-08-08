@@ -5,9 +5,9 @@
 	angular.module('wizardConjurer')
 	.directive('wizardControl', wizardControl);
 	
-	wizardControl.$inject = ['wizardServiceApi'];
+	wizardControl.$inject = ['wizardServiceApi','$rootScope'];
 	
-	function wizardControl(wizardServiceApi,$transclude,$compile){
+	function wizardControl(wizardServiceApi,$rootScope,$transclude,$compile){
 		return {
 			restrict: 'AE',
 			transclude: true,
@@ -29,11 +29,19 @@
 				vm.btnPreviousText = null;
 				vm.btnNextText = null;
 				vm.btnCancelText = null;
+				vm.disablePrevious = false;
+				vm.disableNext = false;
+				vm.disableCancel = false;
 				
 				// Controller methods
 				vm.movePrevious = movePrevious;
 				vm.moveNext = moveNext;
 				vm.goToStep = goToStep;
+				vm.cancelWizard = cancelWizard;
+				
+				$rootScope.$on('wizardConurerUpdateDisplay', function(){
+					updateDisplay();
+				})
 				
 				// Initialize the controller
 				initialize();
@@ -59,6 +67,11 @@
 					vm.btnPreviousText = stepButtons.btnPrevious.displayText;
 					vm.btnNextText = stepButtons.btnNext.displayText;
 					vm.btnCancel = stepButtons.btnCancel.displayText;
+					
+					// Enable or disbale the buttons
+					vm.disablePrevious = stepButtons.btnPrevious.isDisabled;
+					vm.disableNext = stepButtons.btnNext.isDisabled;
+					vm.disableCancel = stepButtons.btnCancel.isDisabled;
 					
 					// Set a currentStep on $scope that can be watched by child directives
 					$scope.currentStep = parseInt(vm.currentStep);
@@ -195,6 +208,10 @@
 					};
 				};
 				
+				function cancelWizard() {
+					
+				};
+				
 				// When the directive goes out of scope, remove the wizard
 				// from the service.
 				$scope.$on('$destroy', function() {
@@ -210,8 +227,9 @@
 					"<div class='row col-md-10'><div class='col-md-8'><ng-transclude></ng-transclude></div><div>" +
 					"<div class='row col-md-10'><div class='col-md-6'>&nbsp;</div>"+
 					"<div class='col-md-4'>" +
-                        "<button type='button' class='btn btn-primary' ng-click='vm.movePrevious()' ng-show='vm.showPrevious'>{{ vm.btnPreviousText }}</button>" +
-					    "<button type='button' class='btn btn-primary' ng-click='vm.moveNext()' ng-show='vm.showNext'>{{ vm.btnNextText }}</button>" +
+                        "<button type='button' class='btn btn-primary' ng-click='vm.movePrevious()' ng-show='vm.showPrevious' ng-disabled='vm.disablePrevious'>{{ vm.btnPreviousText }}</button>" +
+					    "<button type='button' class='btn btn-primary' ng-click='vm.moveNext()' ng-show='vm.showNext' ng-disabled='vm.disableNext'>{{ vm.btnNextText }}</button>" +
+						"<button type='button' class='btn btn-primary' ng-click='vm.cancelWizard()' ng-show='vm.showCancel' ng-disabled='vm.disableCancel'>{{ vm.btnCancelText }}</button>" +
                     "</div></div>" +
 					"</div>"
 		}
