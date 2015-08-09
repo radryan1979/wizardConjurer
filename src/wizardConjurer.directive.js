@@ -39,7 +39,7 @@
 				vm.goToStep = goToStep;
 				vm.cancelWizard = cancelWizard;
 				
-				$rootScope.$on('wizardConurerUpdateDisplay', function(){
+				$rootScope.$on('wizardConjurerUpdateDisplay', function(){
 					updateDisplay();
 				});
 				

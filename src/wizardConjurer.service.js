@@ -61,25 +61,26 @@
 		
 		// Returned methods of the service:
 		var service = {
-			createWizard		: createWizard,
-			setWizardProperty	: setWizardProperty,
-			getWizardProperty	: getWizardProperty,
-			setWizardData		: setWizardData,
-			getWizardData		: getWizardData,
-			getWizardObject		: getWizardObject,
-			removeWizard		: removeWizard,
-			setCurrentStep		: setCurrentStep,
-			getCurrentStep		: getCurrentStep,
-			addStep				: addStep,
-			removeStep			: removeStep,
-			getWizardSteps		: getWizardSteps,
-			setStepProperty		: setStepProperty,
-			getStepProperty		: getStepProperty,
-			getStepFlags		: getStepFlags,
-			getStepButtons		: getStepButtons,
-			getStepData			: getStepData,
-			setStepData			: setStepData,
-			updateDisplay		: updateDisplay
+			createWizard			: createWizard,
+			setWizardProperty		: setWizardProperty,
+			getWizardProperty		: getWizardProperty,
+			setWizardData			: setWizardData,
+			getWizardData			: getWizardData,
+			getWizardObject			: getWizardObject,
+			removeWizard			: removeWizard,
+			setCurrentStep			: setCurrentStep,
+			getCurrentStep			: getCurrentStep,
+			addStep					: addStep,
+			removeStep				: removeStep,
+			getWizardSteps			: getWizardSteps,
+			setStepProperty			: setStepProperty,
+			getStepProperty			: getStepProperty,
+			getStepFlags			: getStepFlags,
+			getStepButtons			: getStepButtons,
+			getStepData				: getStepData,
+			setStepData				: setStepData,
+			updateDisplay			: updateDisplay,
+			setStepButtonProperty	: setStepButtonProperty
 		};
 		
 		return service;
@@ -271,10 +272,19 @@
 			return _wizardList[wizardName]['steps'][stepNumber]['buttons'];
 		};
 		
+		// Used to set any of the properties on a given step.
+        function setStepButtonProperty(wizardName, stepNumber, buttonName, propertyName, data, update) 
+		{
+            _wizardList[wizardName]['steps'][stepNumber]['buttons'][buttonName][propertyName] = data;
+            if (update == true) {
+                updateDisplay();
+            }
+        };
+		
 		// Broadcasts an event to update the wizard control.
 		function updateDisplay()
 		{
-			$rootScope.$broadcast("wizardConurerUpdateDisplay");
+			$rootScope.$broadcast("wizardConjurerUpdateDisplay");
 		}
 	};	
 })();
