@@ -5,7 +5,9 @@
 	
 	.factory('wizardServiceApi', wizardServiceApi);
 	
-	function wizardServiceApi()
+	wizardServiceApi.$inject = ['$rootScope']
+	
+	function wizardServiceApi($rootScope)
 	{
 		var _wizardList = {
 			"defaultWizard" : {}
@@ -33,18 +35,21 @@
 										btnPrevious:	{ 
 															displayText: "Previous",
 															isVisible: true,
+															isDisabled: false,
 															onClick: function(){},
 															validateFunction: function(){}
 														},
 										btnNext:		{
 															displayText: "Next",
 															isVisible: true,
+															isDisabled: false,
 															onClick: function(){},
 															validateFunction: function(){}
 														},
 										btnCancel:		{
 															displayText: "Cancel",
 															isVisible: false,
+															isDisabled: false,
 															onClick: function(){}
 														}
 										}
@@ -56,24 +61,26 @@
 		
 		// Returned methods of the service:
 		var service = {
-			createWizard		: createWizard,
-			setWizardProperty	: setWizardProperty,
-			getWizardProperty	: getWizardProperty,
-			setWizardData		: setWizardData,
-			getWizardData		: getWizardData,
-			getWizardObject		: getWizardObject,
-			removeWizard		: removeWizard,
-			setCurrentStep		: setCurrentStep,
-			getCurrentStep		: getCurrentStep,
-			addStep				: addStep,
-			removeStep			: removeStep,
-			getWizardSteps		: getWizardSteps,
-			setStepProperty		: setStepProperty,
-			getStepProperty		: getStepProperty,
-			getStepFlags		: getStepFlags,
-			getStepButtons		: getStepButtons,
-			getStepData			: getStepData,
-			setStepData			: setStepData,
+			createWizard			: createWizard,
+			setWizardProperty		: setWizardProperty,
+			getWizardProperty		: getWizardProperty,
+			setWizardData			: setWizardData,
+			getWizardData			: getWizardData,
+			getWizardObject			: getWizardObject,
+			removeWizard			: removeWizard,
+			setCurrentStep			: setCurrentStep,
+			getCurrentStep			: getCurrentStep,
+			addStep					: addStep,
+			removeStep				: removeStep,
+			getWizardSteps			: getWizardSteps,
+			setStepProperty			: setStepProperty,
+			getStepProperty			: getStepProperty,
+			getStepFlags			: getStepFlags,
+			getStepButtons			: getStepButtons,
+			getStepData				: getStepData,
+			setStepData				: setStepData,
+			updateDisplay			: updateDisplay,
+			setStepButtonProperty	: setStepButtonProperty
 		};
 		
 		return service;
@@ -81,7 +88,7 @@
 		// Create a new empty wizard object on
 		// _wizardList
 		function createWizard(wizardName)
-			{
+		{
 			_wizardList[wizardName] = {
 				wizardName		: wizardName,
 				currentStep		: 0,
@@ -92,9 +99,12 @@
 		};
 		
 		// Sets a property for a given wizard.
-		function setWizardProperty(wizardName, propertyName, data)
+		function setWizardProperty(wizardName, propertyName, data, update)
 		{
 			_wizardList[wizardName][propertyName] = data;
+			if (update == true){
+				updateDisplay();
+			}
 		};
 		
 		// Gets a property for a given wizard.
@@ -104,9 +114,12 @@
 		};
 		
 		// Replace the data object on the wizard with a new one
-		function setWizardData(wizardName, data)
+		function setWizardData(wizardName, data, update)
 		{
 			_wizardList[wizardName]['data'] = data;
+			if (update == true){
+				updateDisplay();
+			};
 		};
 		
 		// Returns the data object on the wizard
@@ -131,9 +144,12 @@
 		};
 		
 		// Set the current step for a given wizard.
-		function setCurrentStep(wizardName, data)
+		function setCurrentStep(wizardName, data, update)
 		{
 			_wizardList[wizardName]['currentStep'] = data;
+			if (update == true){
+				updateDisplay();
+			};
 		};
 		
 		// Return current step for a given wizard.
@@ -145,7 +161,7 @@
 		// Adds a new step to a given wizard. If the data param
 		// is null or an empty object, the step properties are
 		// filled with default values.
-		function addStep(wizardName, stepNumber, data) 
+		function addStep(wizardName, stepNumber, data, update) 
 		{
 			var _stepProperties = {
 				stepName		:"",
@@ -162,18 +178,21 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
+										isDisabled: false,
 										onClick: function(){},
 										validateFunction: function(){}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
+										isDisabled: false,
 										onClick: function(){},
 										validateFunction: function(){}
 									},
 					btnCancel:		{
 										displayText: "Cancel",
 										isVisible: false,
+										isDisabled: false,
 										onClick: function(){}
 									}
 						}
@@ -192,6 +211,9 @@
 				_stepProperties.stepData = data.stepData;
 			};
 			_wizardList[wizardName]['steps'][stepNumber] = _stepProperties;
+			if (update == true){
+				updateDisplay();
+			};
 		};
 		
 		// Removes a step from a given wizard.
@@ -209,9 +231,12 @@
 		};
 		
 		// Used to set any of the properties on a given step.
-		function setStepProperty(wizardName, stepNumber, propertyName, data)
+		function setStepProperty(wizardName, stepNumber, propertyName, data, update)
 		{
 			_wizardList[wizardName]['steps'][stepNumber][propertyName] = data;
+			if (update == true){
+				updateDisplay();
+			};
 		};
 		
 		// Return the value of any property on a given step.
@@ -233,15 +258,33 @@
 		};
 		
 		// Returns the stepData object
-		function setStepData(wizardName, stepNumber, data)
+		function setStepData(wizardName, stepNumber, data, update)
 		{
 			_wizardList[wizardName]['steps'][stepNumber]['stepData'] = data;
+			if (update == true){
+				updateDisplay();
+			};
 		};
 		
 		// Returns the button object for a step
 		function getStepButtons(wizardName, stepNumber)
 		{
 			return _wizardList[wizardName]['steps'][stepNumber]['buttons'];
+		};
+		
+		// Used to set any of the properties on a given step.
+        function setStepButtonProperty(wizardName, stepNumber, buttonName, propertyName, data, update) 
+		{
+            _wizardList[wizardName]['steps'][stepNumber]['buttons'][buttonName][propertyName] = data;
+            if (update == true) {
+                updateDisplay();
+            }
+        };
+		
+		// Broadcasts an event to update the wizard control.
+		function updateDisplay()
+		{
+			$rootScope.$broadcast("wizardConjurerUpdateDisplay");
 		}
 	};	
 })();
