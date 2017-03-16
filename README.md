@@ -2,11 +2,11 @@
 
 ## Topics
 
-  1. [About] (#about)
-  1. [Using wizardConjurer] (#using-wizardConjurer)
-  1. [Custom Directives] (#custom-directives)
-  1. [Service API Details] (#service-api-details)
-  1. [Future Plans] (#future-plans)
+### [About](#about)
+### [Using wizardConjurer](#using-wizardConjurer)
+### [Custom Directives](#custom-directives)
+### [Service API Details](#service-api-details)
+### [Future Plans](#future-plans)
 
 ## About
 
@@ -50,7 +50,7 @@ Now add a reference to your angular app:
 angular.module('app',['wizardConjurer']);
 ```
 To add the directive to your html document:
-````html
+```html
 <wizard-control wizard-name="myWizard">
   ...
   Place your custom directives here.
