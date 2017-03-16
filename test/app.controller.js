@@ -26,12 +26,14 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: false,
+										isDisabled: true,
 										onClick: null,
 										validateFunction: function(){console.log("Step One: Previous Validation Function")}
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
+										isDisabled: false,
 										onClick: null,
 										validateFunction: function(){
 											console.log("Step One: Next Validation Function");
@@ -39,6 +41,7 @@
 									},
 					btnCancel:		{
 										displayText: "Cancel",
+										isDisabled: false,
 										isVisible: false,
 										onClick: null
 									}
@@ -58,12 +61,14 @@
 					btnPrevious:	{ 
 										displayText: "Previous",
 										isVisible: true,
+										isDisabled: true,
 										onClick: null,
 										validateFunction: null
 									},
 					btnNext:		{
 										displayText: "Next",
 										isVisible: true,
+										isDisabled: false,
 										onClick: null,
 										validateFunction: function(){
 											console.log("Step Two: Next Validation Function");
@@ -72,6 +77,7 @@
 					btnCancel:		{
 										displayText: "Cancel",
 										isVisible: false,
+										isDisabled: false,
 										onClick: null
 									}
 					}
